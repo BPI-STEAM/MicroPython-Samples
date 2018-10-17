@@ -14,7 +14,7 @@ class Pins():
         return Pin(self.pin, Pin.IN).value()
 
     def read_analog(self, ATTN = ADC.ATTN_0DB):
-        if self.pin not in [32,33,34,35,36,37,38,39]:
+        if self.pin not in range(32,40):
             print("This pin feature is not supported")
             return 0
         if self.adc is None:
