@@ -1,6 +1,5 @@
 from pixel import Pixel, PixelPower
-from time import sleep, sleep_ms
-import random
+from time import sleep_ms
 
 PixelPower(True)
 
@@ -274,6 +273,7 @@ class Display:
 		a = color[-1]
 		while True:
 			if color_num != 1:
+				import random
 				random.shuffle(color)
 				if a != color[0]:
 					break
@@ -322,6 +322,10 @@ class Display:
 				self.Led.Show()
 				sleep_ms(delay)
 
+	def clear(self):
+		self.Led.fill((0, 0, 0))
+		self.Led.Show()
+
 	def __show(self, it, color):
 		it = iter(it)
 		for r in range(25):
@@ -336,24 +340,24 @@ class Display:
 			for i in images:
 				self.__show( i, color)
 				sleep_ms(delay)
-			while loop:
-				for i in images:
-					self.__show( i, color)
-					sleep_ms(delay)
+			try:
+				while loop:
+					for i in images:
+						self.__show( i, color)
+						sleep_ms(delay)
+			except Exception as e:
+				self.Led.fill((0, 0, 0))
+				self.Led.Show()
 
 		else:
 			it = iter(images)
 			self.__show(it,color)
-			while loop:
-				self.__show(it, color)
-
-	def clear(self):
-		self.Led.fill((0, 0, 0))
-		self.Led.Show()
-
-
-import random
-
+			try:
+				while loop:
+					self.__show(it, color)
+			except Exception as e:
+				self.Led.fill((0, 0, 0))
+				self.Led.Show()
 
 def unit_test():
 	print('The unit test code is as follows')
@@ -391,30 +395,30 @@ def unit_test():
 				"00000")\n\
    all_boats = [boat1, boat2, boat3, boat4, boat5, boat6]\n\
 	display.scroll(\'hello,world\', Yellow)\n\
-	sleep(1)\n\
+	sleep_ms(1000)\n\
 	display.scroll(454545)\n\
-	sleep(1)\n\
+	sleep_ms(1000)\n\
 	display.scroll(\'Goodbye-My-Loneliness\', [Purple, Yellow, Green, Blue])\n\
-	sleep(1)\n\
+	sleep_ms(1000)\n\
 	display.show(all_boats,Yellow)\n\
-	sleep(1)\n\
+	sleep_ms(1000)\n\
 	display.clear()\n\
 	display.show(boat1,Purple)\n\
-	sleep(1)\n\
+	sleep_ms(1000)\n\
 	display.clear()\n\
-	sleep(1)\n\
+	sleep_ms(1000)\n\
 	display.show(\'9\',Green)\n\
-	sleep(1)\n\
+	sleep_ms(1000)\n\
 	display.show(Image.DUCK)\n\
-	sleep(1)\n\
+	sleep_ms(1000)\n\
 	display.show(Image.DIAMOND)\n\
-	sleep(1)\n\
+	sleep_ms(1000)\n\
 	display.show(Image.SILLY)\n\
-	sleep(1)\n\
+	sleep_ms(1000)\n\
 	display.show(Image.ALL_CLOCKS,Orange)\n\
-	sleep(1)\n\
+	sleep_ms(1000)\n\
 	display.show(Image.ALL_ARROWS,Blue)\n\
-	sleep(1)\n\
+	sleep_ms(1000)\n\
 	display.clear()\n\
 	')
 	display = Display()
@@ -456,30 +460,30 @@ def unit_test():
 
 	all_boats = [boat1, boat2, boat3, boat4, boat5, boat6]
 	display.scroll('hello,world', Yellow)
-	sleep(1)
+	sleep_ms(1000)
 	display.scroll(454545)
-	sleep(1)
+	sleep_ms(1000)
 	display.scroll('Goodbye-My-Loneliness', [Purple, Yellow, Green, Blue])
-	sleep(1)
+	sleep_ms(1000)
 	display.show(all_boats,Yellow)
-	sleep(1)
+	sleep_ms(1000)
 	display.clear()
 	display.show(boat1,Purple)
-	sleep(1)
+	sleep_ms(1000)
 	display.clear()
-	sleep(1)
+	sleep_ms(1000)
 	display.show('9',Green)
-	sleep(1)
+	sleep_ms(1000)
 	display.show(Image.DUCK)
-	sleep(1)
+	sleep_ms(1000)
 	display.show(Image.DIAMOND)
-	sleep(1)
+	sleep_ms(1000)
 	display.show(Image.SILLY)
-	sleep(1)
+	sleep_ms(1000)
 	display.show(Image.ALL_CLOCKS,Orange)
-	sleep(1)
+	sleep_ms(1000)
 	display.show(Image.ALL_ARROWS,Blue)
-	sleep(1)
+	sleep_ms(1000)
 	display.clear()
 
 

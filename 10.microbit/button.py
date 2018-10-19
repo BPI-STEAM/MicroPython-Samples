@@ -1,4 +1,4 @@
-from utime import time, sleep_ms as sleep
+from time import time, sleep_ms
 
 class Button:
 
@@ -9,7 +9,7 @@ class Button:
     def get_presses(self, delay = 1):
         last_time, last_state, presses = time(), 0, 0
         while time() < last_time + delay:
-            sleep(50)
+            sleep_ms(50)
             if last_state == 0 and self.pin.value() == 1:
                 last_state= 1
             if last_state == 1 and self.pin.value() == 0:
@@ -22,7 +22,7 @@ class Button:
     def was_pressed(self, delay = 1):
         last_time, last_state = time(), self.pin.value()
         while time() < last_time + delay:
-            sleep(50)
+            sleep_ms(50)
             if last_state != self.pin.value():
                 return True
         return False
