@@ -17,60 +17,66 @@ time = {'1': 0.3, '2': 0.35, '3': 0.4, '4': 0.5,
 
 Letter = 'ABCDEFG#'
 
-def play(tune):
-    pwm = PWM(Pin(25))
-    for val in tune:
-        val = val.upper()
-        size = len(val)
-        tim = 0.46
-        if ('#' in val) and (val[0] != '#'):
-            tem = val.find('#')
-            val = val[tem] + val[0:tem] + val[tem + 1:]  # 把#移动到字符串的最开始
-            # print(val)
-        # print(size)
-        if size == 1:
-            if val in Letter:
-                freq = octave[(val + '4')]
-        elif size == 2:
-            if val[0] in Letter:
-                if '#' in val:
+
+def play(tune, pin=25):
+    try:
+        pwm = PWM(Pin(pin))
+        for val in tune:
+            val = val.upper()
+            size = len(val)
+            tim = 0.46
+            if ('#' in val) and (val[0] != '#'):
+                tem = val.find('#')
+                val = val[tem] + val[0:tem] + val[tem + 1:]  # 把#移动到字符串的最开始
+                # print(val)
+            # print(size)
+            if size == 1:
+                if val in Letter:
                     freq = octave[(val + '4')]
+            elif size == 2:
+                if val[0] in Letter:
+                    if '#' in val:
+                        freq = octave[(val + '4')]
+                    else:
+                        freq = octave[val]
+            elif size == 3:
+                if ':' in val:
+                    tim = time[val[-1]]
+                    if val[0] in Letter:
+                        freq = octave[(val[0] + '4')]
                 else:
                     freq = octave[val]
-        elif size == 3:
-            if ':' in val:
-                tim = time[val[-1]]
-                if val[0] in Letter:
-                    freq = octave[(val[0] + '4')]
-            else:
-                freq = octave[val]
 
-        elif size == 4:
-            if ':' in val:
-                tim = time[val[-1]]
-                if val[0] in Letter:
-                    freq = octave[val[0:2]]
+            elif size == 4:
+                if ':' in val:
+                    tim = time[val[-1]]
+                    if val[0] in Letter:
+                        freq = octave[val[0:2]]
 
-        elif size == 5:
-            if ':' in val:
-                tim = time[val[-1]]
-                if val[0] in Letter:
-                    freq = octave[val[0:3]]
-        # print(tim)
+            elif size == 5:
+                if ':' in val:
+                    tim = time[val[-1]]
+                    if val[0] in Letter:
+                        freq = octave[val[0:3]]
+            # print(tim)
+            pwm.freq(freq)  # set frequency
+            # print('pwm.freq ' + str(pwm.freq()))  # get current frequency
+            pwm.duty(500)  # set duty cycle
+            sleep(tim)
+    finally:
+        pwm.deinit()
+
+
+def pitch(freq, tim, pin=25):
+    try:
+        pwm = PWM(Pin(pin))
         pwm.freq(freq)  # set frequency
         # print('pwm.freq ' + str(pwm.freq()))  # get current frequency
         pwm.duty(500)  # set duty cycle
-        sleep(tim)
-    pwm.deinit()
+        sleep_ms(tim)
+    finally:
+        pwm.deinit()
 
-
-def pitch(freq, tim):
-    pwm = PWM(Pin(25))
-    pwm.freq(freq)  # set frequency
-    # print('pwm.freq ' + str(pwm.freq()))  # get current frequency
-    pwm.duty(500)  # set duty cycle
-    sleep_ms(tim)
-    pwm.deinit()
 
 BIRTHDAY = [
     "C5:3", "C5:2", "D5:4", "C5:4", "F5", "E5:8",
@@ -78,6 +84,7 @@ BIRTHDAY = [
     "C5:3", "C5:2", "C6:4", "A6", "F5", "E5", "D5",
     "#A6:3", "#A6:2", "A6:4", "F5", "G5", "F5:8"
 ]
+
 
 def unit_test():
     print('The unit test code is as follows')
@@ -97,6 +104,7 @@ def unit_test():
         pitch(freq, 30)
     for freq in range(1760, 880, -16):
         pitch(freq, 30)
+
 
 if __name__ == '__main__':
     unit_test()
