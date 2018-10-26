@@ -34,7 +34,7 @@ button_b = button.Button(27)
 import temperature
 __adc = machine.ADC(machine.Pin(34, machine.Pin.IN))
 __adc.atten(machine.ADC.ATTN_11DB)
-temperature = temperature.Temperature(__adc)
+temperature = temperature.Temperature(__adc).temperature
 
 try:
     import mpu9250
