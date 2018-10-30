@@ -1,33 +1,34 @@
 
+from time import sleep_ms
+
 class gesture():
-    from machine import ADC, Pin
-    from light import LightIntensity
-    from time import sleep_ms
+
     def __init__(self):
+        from light import LightIntensity
         self.LightL = LightIntensity(36)
         self.LightR = LightIntensity(39)
         self.idle = 0
         self.running = 1
         self.finish = 2
-        self.left=0
-        self.right=0
+        self.left = 0
+        self.right = 0
 
     def get_brightness(self):
         self.right_last = self.right_new
-        self.right_new = self.LightR.read()
+        self.right_new = self.LightR.read()*8
         self.left_last = self.left_new
-        self.left_new = self.LightL.read()
-       
+        self.left_new = self.LightL.read()*8
+
     def set_threshold(self):  # 设置阈值
         self.threshold = self.right_last*0.1
 
-    def is_rightorleft(self,dir):
-        self.right=0
-        self.left=0
-        self.right_new = self.right_last = self.LightR.read()
-        self.left_new = self.left_last = self.LightL.read()
+    def is_rightorleft(self, dir):
+        self.right = 0
+        self.left = 0
+        self.right_new = self.right_last = self.LightR.read()*8
+        self.left_new = self.left_last = self.LightL.read()*8
         status = 0
-        
+
         while True:
             if status == self.idle:
                 count = 0
@@ -55,9 +56,9 @@ class gesture():
                     if self.right_last-self.right_new > self.threshold:
                         status = self.finish
             elif status == self.finish:
-               return True
+                return True
 
-    def direction():
+    def direction(self):
         return True
 
 
@@ -71,11 +72,13 @@ def unit_test():
             LED.value(1)\n\
     ')
     from machine import Pin
-    t=gesture()
+
+    t = gesture()
     LED = Pin(18, Pin.OUT)
     LED.value(0)
     if(t.is_rightorleft(0)):
         LED.value(1)
+
 
 if __name__ == '__main__':
     unit_test()
