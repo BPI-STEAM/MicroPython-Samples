@@ -1,10 +1,10 @@
 
+from time import sleep_ms
+
 class gesture():
-    from machine import ADC, Pin
-    from light import LightIntensity
-    from time import sleep_ms
 
     def __init__(self):
+        from light import LightIntensity
         self.LightL = LightIntensity(36)
         self.LightR = LightIntensity(39)
         self.idle = 0
@@ -58,7 +58,7 @@ class gesture():
             elif status == self.finish:
                 return True
 
-    def direction():
+    def direction(self):
         return True
 
 
@@ -72,6 +72,7 @@ def unit_test():
             LED.value(1)\n\
     ')
     from machine import Pin
+
     t = gesture()
     LED = Pin(18, Pin.OUT)
     LED.value(0)
