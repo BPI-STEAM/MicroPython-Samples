@@ -45,11 +45,7 @@ class Sensegesture():
                 return True
         return False
 
-<<<<<<< HEAD
     def is_left(self, runtime=10, interval=0.5):
-=======
-    def is_left(self, runtime=10, interval=20):
->>>>>>> e93743a47002ab7f190f46fa47011728fcec748d
         status = 0
         self.get_brightness()
         self.set_threshold(0.1)
@@ -68,11 +64,7 @@ class Sensegesture():
                 # print('left_new=%d' % self.LightL.new_val)
                 sleep_ms(20)
                 count += 1
-<<<<<<< HEAD
                 if count > interval*40:
-=======
-                if count > interval:
->>>>>>> e93743a47002ab7f190f46fa47011728fcec748d
                     status = Sensegesture.idle
                 if self.LightL.last_val-self.LightL.new_val > self.threshold:
                     status = Sensegesture.finish
