@@ -5,8 +5,9 @@ class LightIntensity():
         self.adc = ADC(Pin(pin, Pin.IN))
         self.adc.atten(ADC.ATTN_11DB) # 0-3.9V
     def read(self):
-        adc_val = self.adc.read()
-        return int(adc_val / 40.95)
+        self.last_val=self.new_val
+        self.new_val = self.adc.read()/5
+        return int(self.new_val*5/40.95)
 
 def unit_test():
     print('\n\
