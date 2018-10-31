@@ -1,9 +1,7 @@
 from time import sleep_ms
 
 class Sensegesture():
-    idle = 0
-    running = 1
-    finish = 2
+    idle, running, finish = 0, 1, 2
 
     def __init__(self, leftPin=36, rightpin=39):
         from light1 import LightIntensity
