@@ -1,4 +1,11 @@
-
+# Author: qiren123		
+ # This file is part of MicroPython MIDI Music		
+ # Copyright (c) 2018 qiren123		
+ #		
+ # Licensed under the MIT license:		
+ #   http://www.opensource.org/licenses/mit-license.php		
+ #
+ 
 DADADADUM = ['r4:2', 'g', 'g', 'g', 'eb:8', 'r:2', 'f', 'f', 'f', 'd:8']
 
 ENTERTAINER = [
