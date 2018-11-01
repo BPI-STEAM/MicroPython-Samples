@@ -1,10 +1,3 @@
-# Author: qiren123
-# This file is part of MicroPython MIDI Music
-# Copyright (c) 2018 qiren123
-#
-# Licensed under the MIT license:
-#   http://www.opensource.org/licenses/mit-license.php
-#
 
 DADADADUM = ['r4:2', 'g', 'g', 'g', 'eb:8', 'r:2', 'f', 'f', 'f', 'd:8']
 
@@ -28,7 +21,7 @@ ODE = [
 ]
 
 NYAN = [
-    'f#5:2', 'g#', 'c#:1', 'd#:2', 'b4:1', 'd5:1', 'c#', 'b4:2', 'b', 'c#5',
+    'f#5:1', 'g#', 'c#:1', 'd#:2', 'b4:1', 'd5:1', 'c#', 'b4:2', 'b', 'c#5',
     'd', 'd:1', 'c#', 'b4:1', 'c#5:1', 'd#', 'f#', 'g#', 'd#', 'f#', 'c#', 'd',
     'b4', 'c#5', 'b4', 'd#5:2', 'f#', 'g#:1', 'd#', 'f#', 'c#', 'd#', 'b4',
     'd5', 'd#', 'd', 'c#', 'b4', 'c#5', 'd:2', 'b4:1', 'c#5', 'd#', 'f#', 'c#',
@@ -58,7 +51,7 @@ BLUES = [
 ]
 
 BIRTHDAY = [
-    'c4:3', 'c:1', 'd:4', 'c:4', 'f', 'e:8', 'c:3', 'c:1', 'd:4', 'c:4', 'g',
+    'c5:4', 'c:1', 'd:4', 'c:4', 'f', 'e:8', 'c:3', 'c:1', 'd:4', 'c:4', 'g',
     'f:8', 'c:3', 'c:1', 'c5:4', 'a4', 'f', 'e', 'd', 'a#:3', 'a#:1', 'a:4',
     'f', 'g', 'f:8'
 ]
@@ -105,7 +98,7 @@ POWER_UP = ['g4:1', 'c5', 'e4', 'g5:2', 'e5:1', 'g5:3']
 
 POWER_DOWN = ['g5:1', 'd#', 'c', 'g4:2', 'b:1', 'c5:3']
 
-octave = {
+normal_tone = {
     'A1': 55, 'B1': 62, 'C1': 33, 'D1': 37, 'E1': 41, 'F1': 44, 'G1': 49,
 
     'A2': 110, 'B2': 123, 'C2': 65, 'D2': 73, 'E2': 82, 'F2': 87,   'G2': 98,
@@ -122,7 +115,7 @@ octave = {
 
     'A8': 7040, 'B8': 7902, 'C8': 4186, 'D8': 4699, 'E8': 5274, 'F8': 5588, 'G8': 6271,
 
-    'A9': 14080, 'B9': 15804, 'R': 1
+    'A9': 14080, 'B9': 15804
 }
 
 rising_tone = {
@@ -162,7 +155,7 @@ falling_tone = {
 
     'B8': 7459, 'D8': 4435, 'E8': 4978, 'G8': 5920, 'A8': 6645,
 
-    'B9': 14917,
+    'B9': 14917
 }
 
 Letter = 'ABCDEFG#R'
@@ -174,46 +167,55 @@ class MIDI():
         self.bpm = bpm
         self.beat = 60000 / self.bpm / self.ticks
 
+    def set_octave(self, octave=4):
+        self.octave = octave
+
+    def set_duration(self, duration=4):
+        self.duration = duration
+
     def reset(self):
-        self.duration = 1
-        self.octave = 5
+        self.set_duration()
+        self.set_octave()
         self.set_tempo()
 
     def __init__(self):
-        self.freq = 1
         self.reset()
-        self.tim = self.beat * 4
 
-    def seek_tone(self, tone, dic):
-        tone_size = len(tone)
-        self.tim = self.beat * self.duration
-        if tone_size == 1:
-            self.freq = dic[(tone + str(self.octave))]
+    def parse(self, tone, dict):
+        # print(tone)
+        time = self.beat * self.duration
+        pos = tone.find(':')
+        if pos != -1:
+            time = self.beat * int(tone[(pos + 1):])
+            tone = tone[:pos]
+        # print(tone)
+        freq, tone_size = 1, len(tone)
+        if 'R' in tone:
+            freq = 1
+        elif tone_size == 1:
+            freq = dict[tone[0] + str(self.octave)]
         elif tone_size == 2:
-            self.freq = dic[(tone)]
-        elif ':' in tone:
-            tem = tone.find(':')
-            self.tim = self.beat * int(tone[tem + 1:])
-            self.freq = dic[(
-                tone[0] + str(self.octave))] if tem == 1 else dic[tone[0:2]]
+            freq = dict[tone]
+            self.set_octave(tone[1:])
+        return int(freq), int(time)
 
     def midi(self, tone):
-        self.tim = self.beat * self.duration
-        if '#' in tone:
-            tem = tone.find('#')
-            tone = tone[0:tem] + tone[tem + 1:]
-            self.seek_tone(tone, rising_tone)
-        elif len(tone) != 1 and tone[1] == 'B':
-            tem = tone.find('B')
-            tone = tone[0:tem] + tone[tem + 1:]
-            self.seek_tone(tone, falling_tone)
-        elif 'R' in tone:
-            self.freq = 1
-            if ':' in tone:
-                tem = tone.find(':')
-                self.tim = self.beat * int(tone[tem + 1:])
-        else:
-            self.seek_tone(tone, octave)
+        # print(tone)
+        pos = tone.find('#')
+        if pos != -1:
+            return self.parse(tone.replace('#', ''), rising_tone)
+        pos = tone.find('B')
+        if pos != -1 and pos != 0:
+            return self.parse(tone.replace('B', ''), falling_tone)
+        return self.parse(tone, normal_tone)
+
+    def set_default(self, tone):
+        pos = tone.find(':')
+        if pos != -1:
+            self.set_duration(int(tone[(pos + 1):]))
+            tone = tone[:pos]
+        if len(tone) == 2:
+            self.set_octave(tone[1:])
 
     def play(self, tune, pin=25):
         from machine import Pin, PWM
@@ -221,15 +223,15 @@ class MIDI():
 
         try:
             pwm = PWM(Pin(pin))
+            self.set_default(tune[0])
             for tone in tune:
-                tone = tone.upper()  # 全部转为大写
+                tone = tone.upper()  # all to upper
                 if tone[0] not in Letter:
                     continue
-                self.midi(tone)
-                # print('freq=%d,tim=%d' % (self.freq, self.tim))
-                pwm.freq(self.freq)  # set frequency
-                pwm.duty(int(self.tim))  # set duty cycle
-                sleep_ms(int(self.tim))
+                midi = self.midi(tone)
+                pwm.freq(midi[0])  # set frequency
+                pwm.duty(midi[1])  # set duty cycle
+                sleep_ms(midi[1])
         finally:
             pwm.deinit()
 
@@ -250,19 +252,20 @@ def unit_test():
     print('The unit test code is as follows')
     print('\n\
     music = MIDI()\n\
+    music.play(BIRTHDAY)\n\
+    music.play(NYAN)\n\
     music.play(PRELUDE)\n\
     music.play(PYTHON)\n\
-    music.play(NYAN)\n\
-    music.play(NYAN)\n\
     for freq in range(880, 1760, 16):\n\
         music.pitch(freq, 30)\n\
     for freq in range(1760, 880, -16):\n\
         music.pitch(freq, 30)\n\
     ')
     music = MIDI()
+    music.play(BIRTHDAY)
+    music.play(NYAN)
     music.play(PRELUDE)
     music.play(PYTHON)
-    music.play(NYAN)
     for freq in range(880, 1760, 16):
         music.pitch(freq, 30)
     for freq in range(1760, 880, -16):
