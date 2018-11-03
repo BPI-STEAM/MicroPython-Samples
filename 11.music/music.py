@@ -1,11 +1,11 @@
-# Author: qiren123		
- # This file is part of MicroPython MIDI Music		
- # Copyright (c) 2018 qiren123		
- #		
- # Licensed under the MIT license:		
- #   http://www.opensource.org/licenses/mit-license.php		
- #
- 
+# Author: qiren123
+# This file is part of MicroPython MIDI Music
+# Copyright (c) 2018 qiren123
+#
+# Licensed under the MIT license:
+#   http://www.opensource.org/licenses/mit-license.php
+#
+
 DADADADUM = ['r4:2', 'g', 'g', 'g', 'eb:8', 'r:2', 'f', 'f', 'f', 'd:8']
 
 ENTERTAINER = [
@@ -58,7 +58,7 @@ BLUES = [
 ]
 
 BIRTHDAY = [
-    'c5:4', 'c:1', 'd:4', 'c:4', 'f', 'e:8', 'c:3', 'c:1', 'd:4', 'c:4', 'g',
+    'c4:4', 'c:1', 'd:4', 'c:4', 'f', 'e:8', 'c:3', 'c:1', 'd:4', 'c:4', 'g',
     'f:8', 'c:3', 'c:1', 'c5:4', 'a4', 'f', 'e', 'd', 'a#:3', 'a#:1', 'a:4',
     'f', 'g', 'f:8'
 ]
@@ -108,11 +108,11 @@ POWER_DOWN = ['g5:1', 'd#', 'c', 'g4:2', 'b:1', 'c5:3']
 normal_tone = {
     'A1': 55, 'B1': 62, 'C1': 33, 'D1': 37, 'E1': 41, 'F1': 44, 'G1': 49,
 
-    'A2': 110, 'B2': 123, 'C2': 65, 'D2': 73, 'E2': 82, 'F2': 87,   'G2': 98,
+    'A2': 110, 'B2': 123, 'C2': 65, 'D2': 73, 'E2': 82, 'F2': 87, 'G2': 98,
 
     'A3': 220, 'B3': 247, 'C3': 131, 'D3': 147, 'E3': 165, 'F3': 175, 'G3': 196,
 
-    'A4': 440, 'B4': 494,  'C4': 262, 'D4': 294, 'E4': 330, 'F4': 349, 'G4': 392,
+    'A4': 440, 'B4': 494, 'C4': 262, 'D4': 294, 'E4': 330, 'F4': 349, 'G4': 392,
 
     'A5': 880, 'B5': 988, 'C5': 523, 'D5': 587, 'E5': 659, 'F5': 698, 'G5': 784,
 
@@ -204,6 +204,7 @@ class MIDI():
         elif tone_size == 2:
             freq = dict[tone]
             self.set_octave(tone[1:])
+        # print(int(freq), int(time))
         return int(freq), int(time)
 
     def midi(self, tone):
@@ -221,16 +222,17 @@ class MIDI():
         if pos != -1:
             self.set_duration(int(tone[(pos + 1):]))
             tone = tone[:pos]
-        if len(tone) == 2:
-            self.set_octave(tone[1:])
 
-    def play(self, tune, pin=25):
+    def play(self, tune, pin=25, duration=None):
         from machine import Pin, PWM
         from utime import sleep_ms
 
         try:
             pwm = PWM(Pin(pin))
-            self.set_default(tune[0])
+            if duration is None:
+                self.set_default(tune[0])
+            else:
+                self.set_duration(duration)
             for tone in tune:
                 tone = tone.upper()  # all to upper
                 if tone[0] not in Letter:

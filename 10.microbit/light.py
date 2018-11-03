@@ -1,106 +1,85 @@
 from time import sleep_ms
 
 
-class LightIntensity():
+class Intensity():
+    dither = 5
+
     def __init__(self, pin):
+        self.old, self.new, self.eliminate = 0, 0, 0
+
         from machine import ADC, Pin
         self.adc = ADC(Pin(pin, Pin.IN))
-        self.adc.atten(ADC.ATTN_11DB)  # 0-3.9V
+        self.adc.atten(ADC.ATTN_11DB) # 0-3.9V
 
     def read(self):
-        self.last_val = self.new_val
-        self.new_val = self.adc.read()/5
-        return int(self.new_val*5/40.95)
+        self.old = self.new
+        self.new = self.adc.read()
+        return int(self.new / 4.095)
 
+    # result > 0 to state up, < 0 to state down.
+    def get_state(self):
+        # print(self.new, self.old)
+        tmp = self.new - self.old
+        return 0 if abs(tmp) < self.eliminate else tmp
 
-class Sensegesture():
-    idle, running, finish = 0, 1, 2
+    def calibrate(self):
+        self.eliminate = self.read() / Intensity.dither
 
-    def __init__(self, leftPin=36, rightpin=39):
-        from light1 import LightIntensity
-        self.LightL = LightIntensity(leftPin)
-        self.LightR = LightIntensity(rightpin)
+class Gesture(object):
+    idle, ing, end, = 0, 1, 2
+
+    def __init__(self, PinLeft=36, PinRight=39, dither=5):
+        Intensity.dither = dither
+        self.l, self.r = Intensity(PinLeft), Intensity(PinRight)
+        self.l_state, self.r_state = Gesture.idle, Gesture.idle
 
     def get_brightness(self):
-        self.LightR.read()
-        self.LightL.read()
+        self.r.read()
+        self.l.read()
 
-    def set_threshold(self, val):  # 设置阈值
-        self.threshold = self.LightR.new_val*val
-
-    def is_right(self, runtime=10, interval=0.5):
-        status = 0
+    def get_gesture(self, delay=30):
+        sleep_ms(delay)
         self.get_brightness()
-        self.set_threshold(0.1)
-        for t in range(runtime*40):
-            if status == Sensegesture.idle:
-                count = 0
-                self.get_brightness()
-                # print(self.threshold)
-                # print('right_new=%d' % self.LightR.new_val)
-                sleep_ms(20)
-                if self.LightL.last_val-self.LightL.new_val > self.threshold and self.LightR.new_val-self.LightL.new_val > self.threshold:
-                    status = self.running
-            elif status == Sensegesture.running:
-                self.get_brightness()
-                # print(self.threshold)
-                # print(self.LightL.last_val)
-                # print('left_new=%d' % self.LightL.new_val)
-                sleep_ms(20)
-                count += 1
-                if count > interval*40:
-                    status = Sensegesture.idle
-                if self.LightR.last_val-self.LightR.new_val > self.threshold:
-                    status = self.finish
-            elif status == Sensegesture.finish:
-                return True
-        return False
+        l_state, r_state = self.l.get_state(), self.r.get_state()
+        result = []
 
-    def is_left(self, runtime=10, interval=0.5):
-        status = 0
-        self.get_brightness()
-        self.set_threshold(0.1)
-        for t in range(runtime*40):
-            if status == Sensegesture.idle:
-                count = 0
-                self.get_brightness()
-                # print('right_new=%d' % self.LightR.new_val)
-                sleep_ms(20)
-                if self.LightR.last_val-self.LightR.new_val > self.threshold and self.LightL.new_val-self.LightR.new_val > self.threshold:
-                    status = Sensegesture.running
-            elif status == Sensegesture.running:
-                self.get_brightness()
-                # print(self.threshold)
-                # print(self.LightL.last_val)
-                # print('left_new=%d' % self.LightL.new_val)
-                sleep_ms(20)
-                count += 1
-                if count > interval*40:
-                    status = Sensegesture.idle
-                if self.LightL.last_val-self.LightL.new_val > self.threshold:
-                    status = Sensegesture.finish
+        if l_state < 0 and r_state < 0:
+            self.l_state, self.r_state = Gesture.ing,  Gesture.ing
 
-            elif status == Sensegesture.finish:
-                return True
-        return False
+        if self.l_state == Gesture.ing and l_state == 0 and r_state < 0:
+                self.l_state = Gesture.end
 
+        if self.l_state == Gesture.end and l_state > 0 and r_state == 0:
+            self.l_state = Gesture.idle
+            result.append('left')
+
+        if self.r_state == Gesture.ing and l_state < 0 and r_state == 0:
+            self.r_state = Gesture.end
+
+        if self.r_state == Gesture.end and  l_state == 0 and r_state > 0:
+            self.r_state = Gesture.idle
+            result.append('right')
+
+        if l_state == 0 and r_state == 0:
+            self.l_state = self.r_state = Gesture.idle
+            self.l.calibrate()
+            self.r.calibrate()
+
+        return None if len(result) != 1 else result[0]
 
 def unit_test():
     print('\n\
-        from machine import Pin\n\
-        t = Sensegesture()\n\
-        LED = Pin(18, Pin.OUT)\n\
-        LED.value(0)\n\
-        if(t.is_right(runtime=15)):\n\
-            LED.value(1)\n\
+        g = Gesture()\n\
+        while True:\n\
+            res = g.get_gesture()\n\
+            if res != None:\n\
+                print(res)\n\
     ')
-    from machine import Pin
-    t = Sensegesture()
-    LED = Pin(18, Pin.OUT)
-    LED.value(0)
-    if(t.is_right(runtime=15)):
-        LED.value(1)
-
+    g = Gesture()
+    while True:
+        res = g.get_gesture()
+        if res != None:
+            print(res)
 
 if __name__ == '__main__':
     unit_test()
