@@ -45,17 +45,17 @@ class Gesture(object):
         l_state, r_state = self.l.get_state(), self.r.get_state()
         result = []
         if self.l_state == Gesture.idle and r_state > 0 and self.r.new-self.l.new > self.l.eliminate:
-            self.count_l = 0
+            self.l_count = 0
             self.l_state = Gesture.ing
 
         if self.r_state == Gesture.idle and l_state > 0 and self.l.new-self.r.new > self.r.eliminate:
-            self.count_2 = 0
+            self.r_count = 0
             self.r_state = Gesture.ing
 
         if self.l_state == Gesture.ing:
             # print(self.l.eliminate)
-            self.count_l += 1
-            if self.count_l > 20:
+            self.l_count += 1
+            if self.l_count > 20:
                 self.l_state = Gesture.idle
             elif l_state > 0 and self.r.new-self.l.new < self.l.eliminate:
                 self.l_state = Gesture.end
@@ -66,8 +66,8 @@ class Gesture(object):
 
         if self.r_state == Gesture.ing:
             # print(self.r.eliminate)
-            self.count_2 += 1
-            if self.count_2 > 20:
+            self.r_count += 1
+            if self.r_count > 20:
                 self.r_state = Gesture.idle
             elif r_state > 0 and self.l.new-self.r.new < self.r.eliminate:
                 self.r_state = Gesture.end
