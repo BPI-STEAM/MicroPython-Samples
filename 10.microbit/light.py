@@ -13,7 +13,7 @@ class Intensity():
 
     def read(self):
         self.old = self.new
-        self.new = self.adc.read()/4.095
+        self.new = self.adc.read() / 4.095
         return int(self.new)
 
     # result > 0 to state up, < 0 to state down.
@@ -23,7 +23,7 @@ class Intensity():
         return 0 if abs(tmp) < self.eliminate else tmp
 
     def calibrate(self):
-        self.eliminate = 2+self.read() / Intensity.dither
+        self.eliminate = 2 + self.read() / Intensity.dither
 
 
 class Gesture(object):
@@ -43,7 +43,9 @@ class Gesture(object):
         sleep_ms(delay)
         self.get_brightness()
         l_state, r_state = self.l.get_state(), self.r.get_state()
+        
         result = []
+
         if self.l_state == Gesture.idle and r_state > 0 and self.r.new-self.l.new > self.l.eliminate:
             self.l_count = 0
             self.l_state = Gesture.ing
@@ -77,9 +79,9 @@ class Gesture(object):
             result.append('right')
 
         if l_state == 0 and r_state == 0 and self.l_state == Gesture.idle and self.r_state == Gesture.idle:
-            self.updata +=1
-            if self.updata>20:
-                self.updata=0  
+            self.updata += 1
+            if self.updata > 20:
+                self.updata = 0  
                 self.l.calibrate()
                 self.r.calibrate()
 
@@ -103,7 +105,7 @@ def unit_test():
         res = g.get_gesture()
         if res != None:
             print(res)
-            count = 1+count
+            count = 1 + count
             print(count)
 
 
