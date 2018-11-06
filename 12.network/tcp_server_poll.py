@@ -28,8 +28,8 @@ while True:
                 print('repond data ', client)
                 data = client.recv(64) # max recv limit
                 print(data)
-                # you can take disclientnected, If you receive an empty packet or a specified string(such as data == b'disclientnect').
-                if len(data) == 0 or data == b'disclientnect':
+                # you can take disclientnected, If you receive an empty packet or a specified string(such as data == b'disconnect').
+                if len(data) == 0 or data == b'disconnect':
                     poll.modify(client, select.POLLOUT) # it modify to POLLOUT
         elif event == select.POLLOUT:
             client = sockets[fd.fileno()]
