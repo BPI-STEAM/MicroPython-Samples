@@ -1,8 +1,5 @@
 from time import sleep_ms
-<<<<<<< HEAD
 
-=======
->>>>>>> 9c84ecc58c88a86411117dae28d3e69d002fe426
 
 class Accelerometer:
 
@@ -129,11 +126,6 @@ class Direction(Accelerometer):
                 result.append('backwards')
                 self.b_state = Direction.idle
 
-<<<<<<< HEAD
-=======
-      
-
->>>>>>> 9c84ecc58c88a86411117dae28d3e69d002fe426
         return None if len(result) != 1 else result[0]
 
 
@@ -156,10 +148,6 @@ def unit_test():
             print(res)
             t = 1+t
             print(t)
-<<<<<<< HEAD
-=======
-  
->>>>>>> 9c84ecc58c88a86411117dae28d3e69d002fe426
 
 
 if __name__ == '__main__':
