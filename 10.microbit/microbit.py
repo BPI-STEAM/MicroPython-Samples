@@ -42,6 +42,6 @@ try:
     import compass
     compass = compass.Compass(__sensor)
     import accelerometer
-    accelerometer = accelerometer.Accelerometer(__sensor)
+    accelerometer = accelerometer.Direction(__sensor)
 except Exception as e:
     print("MPU9250 ERROR")

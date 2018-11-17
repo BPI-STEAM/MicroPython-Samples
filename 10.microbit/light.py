@@ -33,7 +33,7 @@ class Gesture(object):
         Intensity.dither = dither
         self.l, self.r = Intensity(PinLeft), Intensity(PinRight)
         self.l_state, self.r_state = Gesture.idle, Gesture.idle
-        self.updata=0 
+        self.update=0 
 
     def get_brightness(self):
         self.r.read()
@@ -79,9 +79,9 @@ class Gesture(object):
             result.append('right')
 
         if l_state == 0 and r_state == 0 and self.l_state == Gesture.idle and self.r_state == Gesture.idle:
-            self.updata += 1
-            if self.updata > 20:
-                self.updata = 0  
+            self.update += 1
+            if self.update > 20:
+                self.update = 0  
                 self.l.calibrate()
                 self.r.calibrate()
 
