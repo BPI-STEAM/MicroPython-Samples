@@ -1,11 +1,25 @@
-import wifi
-wifi.try_connect()
 
-try:
-    import ftptiny
-    ftp = ftptiny.FtpTiny() # create one
-    ftp.start() # start an ftp thread
+def ftp_server(other):
+    try:
+        import wifi
+        wifi.try_connect()
+        import time
+        while wifi.isconnected() is False:
+            time.sleep(1)
+        import ftptiny
+        ftp = ftptiny.FtpTiny()
+        ftp.start()
+
+        other()
+        
+    finally:
+        print('ftp.stop()')
+        ftp.stop()
+
+# This is a recommended usage
+
+@ftp_server
+def main():
     while True:
-        pass # your working
-finally:
-    ftp.stop()
+        pass
+
