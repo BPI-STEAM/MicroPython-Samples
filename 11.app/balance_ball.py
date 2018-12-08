@@ -5,9 +5,9 @@ from mpu9250 import MPU9250
 i2c = I2C(scl=Pin(22), sda=Pin(21), freq=200000)
 sensor = MPU9250(i2c)
 print("MPU9250 id: " + hex(sensor.whoami))
-from display import BpiBitNeoPixel, NeoPixelPower
-NeoPixelPower(True)
-View = BpiBitNeoPixel()
+from display import NeoPixel, PixelPower
+PixelPower(True)
+View = NeoPixel()
 X, Y, Color, Flag = 2, 2, 2, 0
 while True:
 	# print('acceleration:', sensor.acceleration)
