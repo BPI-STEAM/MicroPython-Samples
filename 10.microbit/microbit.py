@@ -37,11 +37,20 @@ __adc.atten(machine.ADC.ATTN_11DB)
 temperature = temperature.Temperature(__adc).temperature
 
 try:
-    import mpu9250
-    __sensor = mpu9250.MPU9250(machine.I2C(scl=machine.Pin(22), sda=machine.Pin(21), freq=200000))
-    import compass
-    compass = compass.Compass(__sensor)
+    from mpu9250 import MPU9250
+    from mpu6500 import MPU6500
+    __i2c = machine.I2C(scl=machine.Pin(22), sda=machine.Pin(21), freq=200000)
+    __dev = __i2c.scan()
+    # print("dev ", __dev)
+    if 104 in __dev:
+        print("1.4 version")
+        __sensor = MPU9250(__i2c, MPU6500(__i2c, 0x68))
+    if 105 in __dev:
+        print("1.2 version No compass")
+        __sensor = MPU9250(__i2c, MPU6500(__i2c, 0x69))
     import accelerometer
     accelerometer = accelerometer.Direction(__sensor)
+    import compass
+    compass = compass.Compass(__sensor)
 except Exception as e:
-    print("MPU9250 ERROR")
+    print("MPU9250 Error", e)
