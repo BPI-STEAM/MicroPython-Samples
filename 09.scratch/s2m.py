@@ -112,11 +112,11 @@ def loop():
                 except IndexError:
                     continue
                 if image_key in image_dict:
-                    display.show(image_dict.get(image_key), wait=False)
+                    display.show(image_dict.get(image_key),[0,0,255])
 
             # scroll text command
             elif cmd_id == 's':
-                display.scroll(str(cmd_list[1]), wait=False)
+                display.scroll(str(cmd_list[1]),[0,0,255])
 
             # write pixel command
             elif cmd_id == 'p':
