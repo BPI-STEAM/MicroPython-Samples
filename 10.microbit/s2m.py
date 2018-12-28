@@ -19,7 +19,6 @@
 
 from microbit import *
 
-
 # This is a script used to control a micro:bit from s2m
 
 # This loop continuously polls the sensors and then prints a reply string.
@@ -111,12 +110,83 @@ def loop():
                     image_key = cmd_list[1]
                 except IndexError:
                     continue
-                if image_key in image_dict:
-                    display.show(image_dict.get(image_key),[0,0,255])
+                try:
+                    r_value = int(cmd_list[2])
+                except ValueError:
+                    continue
+                except IndexError:
+                    continue
+
+                if r_value < 0:
+                    r_value = 0
+                if r_value > 255:
+                    r_value = 255
+                try:
+                    g_value = int(cmd_list[3])
+                except ValueError:
+                    continue
+                except IndexError:
+                    continue
+            
+                if g_value < 0:
+                    g_value = 0
+                if g_value > 255:
+                    g_value = 255
+                try:
+                    b_value = int(cmd_list[4])
+                except ValueError:
+                    continue
+                except IndexError:
+                    continue
+
+                if b_value < 0:
+                    b_value = 0
+                if b_value > 255:
+                    b_value = 255
+
+                #if image_key in image_dict:
+                display.show(image_dict.get(image_key),[r_value,g_value,b_value])
 
             # scroll text command
             elif cmd_id == 's':
-                display.scroll(str(cmd_list[1]),[0,0,255])
+                try:
+                    r_value = int(cmd_list[2])
+                except ValueError:
+                    continue
+                except IndexError:
+                    continue
+
+                if r_value < 0:
+                    r_value = 0
+                if r_value > 255:
+                    r_value = 255
+
+                try:
+                    g_value = int(cmd_list[3])
+                except ValueError:
+                    continue
+                except IndexError:
+                    continue
+
+                if g_value < 0:
+                    g_value = 0
+                if g_value > 255:
+                    g_value = 255
+
+                try:
+                    b_value = int(cmd_list[4])
+                except ValueError:
+                    continue
+                except IndexError:
+                    continue
+                
+                if b_value < 0:
+                    b_value = 0
+                if b_value > 255:
+                    b_value = 255
+
+                display.scroll(str(cmd_list[1]),[r_value,g_value,b_value])
+
 
             # write pixel command
             elif cmd_id == 'p':
@@ -147,17 +217,46 @@ def loop():
                 if y > 4:
                     y = 4
                 try:
-                    value = int(cmd_list[3])
+                    r_value = int(cmd_list[3])
                 except ValueError:
                     continue
                 except IndexError:
                     continue
 
-                if value < 0:
-                    value = 0
-                if value > 9:
-                    value = 9
-                display.set_pixel(x, y, value)
+                if r_value < 0:
+                    r_value = 0
+                if r_value > 255:
+                    r_value = 255
+                
+                try:
+                    g_value = int(cmd_list[4])
+                except ValueError:
+                    continue
+                except IndexError:
+                    continue
+
+                if g_value < 0:
+                    g_value = 0
+                if g_value > 255:
+                    g_value = 255
+
+                try:
+                    b_value = int(cmd_list[5])
+                except ValueError:
+                    continue
+                except IndexError:
+                    continue
+
+                if b_value < 0:
+                    b_value = 0
+                if b_value > 255:
+                    b_value = 255
+
+                #display.set_pixel(x, y, value)
+                from pixel import Pixel
+                View = Pixel()
+                View.LoadXY(x, y, [r_value,g_value,b_value])
+                View.Show()
 
             # clear display command
             elif cmd_id == 'c':
@@ -217,9 +316,9 @@ def loop():
                 sensor_string = ""
 
                 # accelerometer
-                sensor_string += str(int(accelerometer.get_x())) + ','
-                sensor_string += str(int(accelerometer.get_y())) + ','
-                sensor_string += str(int(accelerometer.get_z())) + ','
+                sensor_string += str(int(accelerometer.get_x()*20)) + ','
+                sensor_string += str(int(accelerometer.get_y()*20)) + ','
+                sensor_string += str(int(accelerometer.get_z()*20)) + ','
 
                 # buttons
                 sensor_string += str(button_a.is_pressed()) + ','
@@ -254,9 +353,17 @@ def loop():
                     sensor_string += '0' + ','
 
                 if not digital_outputs[2]:
-                    sensor_string += str(pin2.read_analog())
+                    sensor_string += str(pin2.read_analog())+','
                 else:
                     sensor_string += '0' + ','
+                ###temperature
+                sensor_string += str(temperature()) +',' 
+                #L R light
+                import light
+                R = light.Intensity(39)
+                L = light.Intensity(36)
+                sensor_string += str(int(L.read()))+',' 
+                sensor_string += str(int(R.read())) 
 
                 print(sensor_string)
                 sleep(10)
