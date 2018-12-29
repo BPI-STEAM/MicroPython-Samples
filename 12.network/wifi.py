@@ -1,12 +1,11 @@
-import network
 
-from button import Button
+import network
 
 wlan = network.WLAN(network.STA_IF)
 
 if wlan.active() is False:
     wlan.active(True)
-    
+
 def disconnect():
     global wlan
     wlan.disconnect()
@@ -23,37 +22,35 @@ def isconnected():
 def smartconfig():
     close()
     print(network.smartconfig())
-    
+
 def try_connect():
     import wifi_cfg
     wlan.disconnect()
     wlan.connect(wifi_cfg.WIFI_SSID, wifi_cfg.WIFI_PSWD)
 
-__button__, __last_button__ = False, False
+is_smartconfig = False
 
-def __check_button(button):
-    global __button__, __last_button__
-    if __last_button__ != button.is_pressed():
-        __button__ = True
+def __irq_sc(p):
+    p.irq().trigger(0)
+    global is_smartconfig
+    if is_smartconfig is False:
+        is_smartconfig = True
+        print("Started wifi in smartconfig mode")
 
-def start(led_delay=150, button=Button(35)):
 
+
+def start(led_delay=150, pin_id=35):
     if isconnected():
         print('Wifi connected.')
         return
 
-    global wlan, __button__, __last_button__
-    __button__, __last_button__ = False, button.is_pressed()
+    from machine import Pin
+    pin = Pin(pin_id, Pin.IN).irq(trigger=Pin.IRQ_RISING, handler=__irq_sc)
 
-    if wlan.active() is False:
-        wlan.active(True)
-
-    from machine import Timer
-    from display import Display, Purple, Yellow, Green, Blue
-    print('Press "A" to enter the smartconfig mode while the led is rolling')
     try:
-        timer = Timer(-100)
-        timer.init(period = 250, mode = Timer.PERIODIC, callback = lambda t : (__check_button(button)))
+
+        from display import Display, Purple, Yellow, Green, Blue
+        print('Press "A" to enter the smartconfig mode while the led is rolling')
         mac = wlan.config('mac')
         view = ('%X%X' % (mac[4], mac[5]))
         try:
@@ -66,11 +63,10 @@ def start(led_delay=150, button=Button(35)):
             import wifi_cfg
         if hasattr(wifi_cfg, 'HOST_NAME'):
             wlan.config(dhcp_hostname=wifi_cfg.HOST_NAME)
-            
+
         Display().scroll(view, [Purple, Yellow, Green, Blue], led_delay)
 
-        if __button__:
-            print("Started wifi in smartconfig mode")
+        if is_smartconfig:
             smartconfig()
         else:
             print("Started wifi in normal mode")
@@ -80,5 +76,7 @@ def start(led_delay=150, button=Button(35)):
         print(e)
     finally:
         Display().clear()
-        timer.deinit()
+        pin.trigger(0)
 
+if __name__ == '__main__':
+    start()
