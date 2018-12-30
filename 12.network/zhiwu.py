@@ -44,7 +44,9 @@ class decode:
         res = self.core(pack)
         if (pack[0] == TYPE_COLLECT):
             # return [TYPE_COLLECT, res[1:ord(res[0]) + 1], res[ord(res[0]) + 2:]]
-            return [TYPE_COLLECT, res[1:ord(res[0]) + 1], res[ord(res[0]) + 2:ord(res[0]) + ord(res[0]) + 1]]
+            src = 1+ord(res[0])
+            dt = 1 + src
+            return [TYPE_COLLECT, res[1:src], res[dt:dt+ord(res[src])]]
         elif (pack[0] == TYPE_COMMAND):
             result = [TYPE_COMMAND, res[1:ord(res[0]) + 1]]
             # print(result)
