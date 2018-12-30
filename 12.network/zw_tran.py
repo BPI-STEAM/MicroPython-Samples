@@ -6,21 +6,21 @@ import zhiwu
 A = zhiwu.encode(43)
 B = zhiwu.decode(55)
 
-ServerIP = '192.168.123.97'
-# ServerIP = '10.10.10.215'
+# ServerIP = '192.168.123.97'
+ServerIP = '10.10.10.215'
 
 xAsyncSocketsPool = XAsyncSockets.XAsyncSocketsPool()
 xAsyncUDPDatagram = XAsyncSockets.XAsyncUDPDatagram.Create(xAsyncSocketsPool, ('0.0.0.0', 32))
 
 def _onUDPDatagramDataRecv(xAsyncUDPDatagram, remoteAddr, datagram) :
-    print('On UDP Datagram Data Recv (%s:%s) :' % remoteAddr, bytes(datagram))
+    # print('On UDP Datagram Data Recv (%s:%s) :' % remoteAddr, bytes(datagram))
     # print(str(B.core(bytes(datagram))))
     print(B.parse(bytes(datagram)))
     print(B)
 
 
 def _onUDPDatagramFailsToSend(xAsyncUDPDatagram, datagram, remoteAddr) :
-    print('On UDP Datagram Fails To Send', datagram, remoteAddr)
+    print('On UDP Datagram Fails To Send', bytes(datagram), remoteAddr)
 
 if xAsyncUDPDatagram:
     xAsyncUDPDatagram.OnFailsToSend = _onUDPDatagramFailsToSend
@@ -42,7 +42,7 @@ try:
     import time
     while True:
         time.sleep(1)
-        Pack = A.collect("source", str(time.time()))
+        Pack = A.collect("sync", str(time.time()))
         xAsyncUDPDatagram.AsyncSendDatagram(datagram=bytearray(Pack), remoteAddr=(ServerIP, 9954))
         print(A)
 

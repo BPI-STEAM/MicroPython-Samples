@@ -17,6 +17,9 @@ class encode:
     def __del__(self):
         encode_del(self.en)
 
+    def get(self):
+        return encode_parse(self.en)
+
     def __str__(self):
         return encode_parse(self.en)
 
@@ -33,6 +36,9 @@ class decode:
 
     def __del__(self):
         decode_del(self.de)
+
+    def get(self):
+        return decode_parse(self.de)
 
     def __str__(self):
         return decode_parse(self.de)
