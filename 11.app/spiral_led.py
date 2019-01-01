@@ -1,8 +1,8 @@
 import utime
 from random import randint
-from display import BpiBitNeoPixel, NeoPixelPower
-NeoPixelPower(True)
-View = BpiBitNeoPixel()
+from display import NeoPixel, PixelPower
+PixelPower(True)
+View = NeoPixel()
 
 RGB = (0, 0, 0)
 

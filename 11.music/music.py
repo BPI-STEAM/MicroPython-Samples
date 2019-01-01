@@ -285,6 +285,7 @@ __music__ = MIDI()
 
 play = __music__.play
 pitch = __music__.pitch
+set_tempo = __music__.set_tempo
 
 if __name__ == '__main__':
     unit_test()
