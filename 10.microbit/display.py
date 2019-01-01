@@ -315,7 +315,7 @@ class Display:
 				else:
 					pixel_col[i] = [0, 0, 0]
 
-			for i in range(6):  # 开始滚动显示
+			for i in range(6):  # 开始滚动显示 显示6行，一行为空白
 				for t in range(4):
 					self.tem[20 - (t * 5):20 - (t * 5) + 5] = self.tem[20 -
 																	   ((t + 1) * 5):20 - ((t + 1) * 5) + 5]
