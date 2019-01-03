@@ -4,7 +4,16 @@ from zwlib import *
 def set_time(secs):
     import time
     import machine
-    machine.RTC().init(time.localtime(secs))
+
+    # monkey patch
+    tmp = list(time.localtime(secs))
+    tmp.insert(3, 0)
+    tmp.pop()
+    # print(tmp)
+
+    # print(time.time())
+    machine.RTC().datetime(tmp)
+    # print(time.time())
 
     # import ntptime
     # time.settime()
