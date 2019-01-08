@@ -5,7 +5,6 @@ def set_time(secs):
     import time
     import machine
 
-    # monkey patch
     tmp = list(time.localtime(secs))
     tmp.insert(3, 0)
     tmp.pop()
