@@ -9,8 +9,8 @@ import time
 from umqtt.robust import MQTTClient
 
 try:
-
-    c = MQTTClient(client_id, server_ip)
+    # see https://github.com/micropython/micropython-lib/blob/master/umqtt.simple/umqtt/simple.py
+    c = MQTTClient(client_id, server_ip, 1883) 
     c.DEBUG = True
 
     def sub_cb(topic, msg):
