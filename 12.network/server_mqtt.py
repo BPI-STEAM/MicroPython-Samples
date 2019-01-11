@@ -1,7 +1,7 @@
 import wifi
 wifi.start()
 
-server_ip = "192.168.30.105"
+server_ip = "192.168.123.97"
 client_id = "umqtt_client"
 
 import time
@@ -20,7 +20,9 @@ try:
     c.set_callback(sub_cb)
 
     if not c.connect(clean_session = False):
-        c.subscribe(b"foo_topic")
+            c.subscribe(b"foo_topic")
+        
+    c.publish(b"foo_topic", b"hello")
 
     while 1:
         time.sleep(1)
@@ -28,5 +30,6 @@ try:
             c.wait_msg()
         else:
             print('other operator')
+
 finally:
     c.disconnect()
