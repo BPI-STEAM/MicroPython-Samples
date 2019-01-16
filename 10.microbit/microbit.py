@@ -23,6 +23,11 @@ pin16 = pins.Pins(5)
 pin19 = pins.Pins(22)
 pin20 = pins.Pins(21)
 
+def panic(flag=0):
+    return machine.reset_cause()
+
+reset = machine.reset
+
 import display
 Image = display.Image
 display = display.Display()
