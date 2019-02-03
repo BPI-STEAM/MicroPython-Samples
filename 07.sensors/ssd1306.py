@@ -166,3 +166,20 @@ class SSD1306_SPI(SSD1306):
         self.res.low()
         time.sleep_ms(10)
         self.res.high()
+
+def unit_test():
+    import machine
+    from ssd1306 import SSD1306_I2C
+
+    WIDTH = const(128)
+    HEIGHT = const(64)
+    sda_pin = machine.Pin(21)
+    scl_pin = machine.Pin(22)
+
+    i2c = machine.I2C(scl=scl_pin, sda=sda_pin)
+
+    print(i2c.scan())
+
+    ssd = SSD1306_I2C(WIDTH, HEIGHT, i2c)
+    ssd.fill(1)
+    ssd.show()
