@@ -58,13 +58,13 @@ class decode:
         res = self.core(pack)
         if (pack[0] == TYPE_COLLECT):
             # return [TYPE_COLLECT, res[1:ord(res[0]) + 1], res[ord(res[0]) + 2:]]
-            src = 1+ord(res[0])
+            src = 1+res[0]
             dt = 1 + src
-            return [TYPE_COLLECT, res[1:src], res[dt:dt+ord(res[src])]]
+            return [TYPE_COLLECT, res[1:src], res[dt:dt+res[src]]]
         elif (pack[0] == TYPE_COMMAND):
-            result = [TYPE_COMMAND, res[1:ord(res[0]) + 1]]
+            result = [TYPE_COMMAND, res[1:res[0] + 1]]
             # print(result)
-            if (result[1] == 'TimeSysn'):
+            if (result[1] == b'TimeSysn'):
                 # print(decode_parse(self.de))
                 set_time(decode_parse(self.de)[0])
             return result
@@ -83,9 +83,13 @@ if __name__ == '__main__':
     print(B)
 
     Pack = A.command()
+    Data = B.parse(bytearray(Pack))
     print(B.parse(bytearray(Pack)))
     print(A)
     print(B)
+
+    print(Data[1].decode('iso-8859-1'))
+    print(Data[1].split(b' '))
 
     Pack = A.command('TimeSysn')
     print(B.parse(bytearray(Pack)))
