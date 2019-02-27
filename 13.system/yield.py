@@ -22,3 +22,18 @@ try:
 	next(task) # will raise StopIteration
 except Exception as e:
 	print('yield StopIteration')
+
+if __name__ == '__main__':
+		
+	def task():
+		while True:
+			print('hello')
+			yield
+
+	tmp = task()
+	while True:
+		next(tmp)
+
+	while True:
+		print('hello')
+	
