@@ -128,6 +128,17 @@ class Direction(Accelerometer):
 
         return None if len(result) != 1 else result[0]
 
+    def was_gesture(self, gesture="shake"):
+        print("was_gesture will be supported in the future.")
+
+    def is_gesture(self, gesture="shake"):
+        print("is_gesture will be supported in the future.")
+
+    def get_gestures(self):
+        print("get_gestures will be supported in the future.")
+
+    def current_gesture(self):
+        print("current_gesture will be supported in the future.")
 
 def unit_test():
     print("\n\
