@@ -225,6 +225,7 @@ __music__ = music()
 play = __music__.play
 pitch = __music__.pitch
 set_tempo = __music__.set_tempo
+stop = __music__.stop
 
 if __name__ == '__main__':
     unit_test()
