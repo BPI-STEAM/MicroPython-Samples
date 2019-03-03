@@ -289,13 +289,13 @@ class Display:
     def stop(self):
         self.alive = False
         if Display.lock.acquire():
-            print("stop")
+            # print("stop")
             Display.lock.release()
     def scroll(self, val, color=Red, delay=150):
         self.stop()
         self.alive = True
         if Display.lock.acquire():
-            print("start")
+            # print("start")
             _thread.start_new_thread(self._scroll,([val,color,delay]))
             Display.lock.release()
     def Disrupt_Col(color):

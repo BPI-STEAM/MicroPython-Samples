@@ -167,7 +167,11 @@ falling_tone = {
 
 Letter = 'ABCDEFG#R'
 
+import _thread
+
 class MIDI():
+
+    lock = _thread.allocate_lock()
 
     def set_tempo(self, ticks=4, bpm=120):
         self.ticks = ticks
@@ -190,6 +194,7 @@ class MIDI():
 
     def __init__(self):
         self.reset()
+        self.alive = False
 
     def parse(self, tone, dict):
         # print(tone)
