@@ -1,3 +1,5 @@
+import utime
+from machine import Pin
 from machine import Pin, SPI
 
 from micropython import const
@@ -18,7 +20,8 @@ CS5460A_CFG_READ_CYCLE = const(0x0a)  # //reg read: cycle count
 
 CS5460A_CFG_POWER_UP = const(0xa0)  # // power-up/halt
 
-CS5460A_CFG_GAIN = const(0x40)  # // reg write: config. PGA Gain 10x, IHPF=1, VHPF=1
+# // reg write: config. PGA Gain 10x, IHPF=1, VHPF=1
+CS5460A_CFG_GAIN = const(0x40)
 
 CS5460A_CFG_GAIN1 = const(0x01)
 
@@ -26,7 +29,7 @@ CS5460A_CFG_GAIN2 = const(0x00)
 
 CS5460A_CFG_GAIN3 = const(0x61)
 
-CS5460A_CFG_IGN= const(0x44)  # // reg write: Ign [current chan gain].
+CS5460A_CFG_IGN = const(0x44)  # // reg write: Ign [current chan gain].
 
 CS5460A_CFG_IGN1 = const(0x40)
 
@@ -42,11 +45,12 @@ CS5460A_CFG_VGN2 = const(0xA0)
 
 CS5460A_CFG_VGN3 = const(0xEA)
 
-CS5460A_START_CONV = const(0xe8) #command : start convert
+CS5460A_START_CONV = const(0xe8)  # command : start convert
 
 
 class cs5460a(object):
     import utime
+
     def __init__(self, spi, cs=2, rst=4):
         self.spi = spi
         self.cs = Pin(cs, Pin.OUT)
@@ -82,9 +86,12 @@ class cs5460a(object):
         self.spi.write(bytearray([CS5460A_CFG_POWER_UP]))
         self.cs.value(1)  # the command of the power_up
 
-        self.write(CS5460A_CFG_GAIN, bytearray([CS5460A_CFG_GAIN1, CS5460A_CFG_GAIN2, CS5460A_CFG_GAIN3]))  # set
-        self.write(CS5460A_CFG_VGN , bytearray([CS5460A_CFG_VGN1, CS5460A_CFG_VGN2, CS5460A_CFG_VGN3]))#V
-        self.write(CS5460A_CFG_IGN, bytearray([CS5460A_CFG_IGN1, CS5460A_CFG_IGN2, CS5460A_CFG_IGN3]))#A
+        self.write(CS5460A_CFG_GAIN, bytearray(
+            [CS5460A_CFG_GAIN1, CS5460A_CFG_GAIN2, CS5460A_CFG_GAIN3]))  # set
+        self.write(CS5460A_CFG_VGN, bytearray(
+            [CS5460A_CFG_VGN1, CS5460A_CFG_VGN2, CS5460A_CFG_VGN3]))  # V
+        self.write(CS5460A_CFG_IGN, bytearray(
+            [CS5460A_CFG_IGN1, CS5460A_CFG_IGN2, CS5460A_CFG_IGN3]))  # A
 
         self.cs.value(0)
         self.spi.write(bytearray([CS5460A_START_CONV]))
@@ -101,7 +108,8 @@ class cs5460a(object):
             # print(c)
             temp = ((c[0] + b[0] * 256 + a[0] * 65536) + 1)
         else:
-            temp = ((true_power[0] + true_power[0] * 256 + true_power[0] * 65536) + 1)
+            temp = ((true_power[0] + true_power[0] *
+                     256 + true_power[0] * 65536) + 1)
         return temp
 
     def read_u(self):
@@ -123,15 +131,13 @@ class cs5460a(object):
         return P
 
 
-from machine import Pin
-import utime
-
 p = Pin(18, Pin.OUT)
 p.value(1)
 
 
 def unit_test():
-    vspi = SPI(-1, sck=Pin(5), mosi=Pin(23), miso=Pin(19), baudrate=2000000)  # -1 software spi
+    vspi = SPI(-1, sck=Pin(5), mosi=Pin(23), miso=Pin(19),
+               baudrate=2000000)  # -1 software spi
     ts = cs5460a(vspi)
     ts.cs5460a_setup()  # 初始化
 
