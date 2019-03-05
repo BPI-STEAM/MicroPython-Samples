@@ -2,30 +2,30 @@ from time import time, sleep_ms
 
 class Button:
 
-    def __init__(self, pin):
+    def __init__(self, pin_id):
         from machine import Pin
-        self.pin = Pin(pin, Pin.IN)
+        self.pin = Pin(pin_id, Pin.IN)
+        self.irq = self.pin.irq(trigger=Pin.IRQ_RISING, handler=self.__irq_sc)
+        self.presses = 0
 
-    def get_presses(self, delay = 1):
-        last_time, last_state, presses = time(), 0, 0
-        while time() < last_time + delay:
-            sleep_ms(50)
-            if last_state == 0 and self.pin.value() == 1:
-                last_state= 1
-            if last_state == 1 and self.pin.value() == 0:
-                last_state, presses = 0, presses + 1
-        return presses
+    def __irq_sc(self, p):
+        # print(self, p)
+        self.presses += 1
+
+    def close(self):
+       self.irq.trigger(0) 
+
+    def reset(self):
+       self.presses = 0
+
+    def get_presses(self):
+        return self.presses
 
     def is_pressed(self):
         return self.pin.value() == 0
 
-    def was_pressed(self, delay = 1):
-        last_time, last_state = time(), self.pin.value()
-        while time() < last_time + delay:
-            sleep_ms(50)
-            if last_state != self.pin.value():
-                return True
-        return False
+    def was_pressed(self):
+        return self.presses != 0
 
 def unit_test():
     print('The unit test code is as follows')
@@ -36,11 +36,15 @@ def unit_test():
             print(\'button_a is_pressed \', button_a.is_pressed())\n\
             print(\'button_a get_presses \', button_a.get_presses())\n\
         ')
-    button_a = Button(35)
-    while True:
-        print('button_a was_pressed ', button_a.was_pressed())
-        print('button_a is_pressed ', button_a.is_pressed())
-        print('button_a get_presses ', button_a.get_presses())
+    try:
+        button_a = Button(35)
+        while True:
+            sleep_ms(100)
+            print('button_a was_pressed ', button_a.was_pressed())
+            print('button_a is_pressed ', button_a.is_pressed())
+            print('button_a get_presses ', button_a.get_presses())
+    finally:
+        button_a.close()
 
 if __name__ == '__main__':
     unit_test()

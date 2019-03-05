@@ -15,8 +15,8 @@ class Pins():
 
     def read_analog(self, ATTN = ADC.ATTN_0DB):
         if self.pin not in range(32,40):
-            print("This pin feature is not supported")
-            return 0
+            # print("This pin feature is not supported")
+            return None
         if self.adc is None:
             self.adc = ADC(Pin(self.pin, Pin.IN))
             self.adc.atten(ATTN)  
@@ -24,8 +24,8 @@ class Pins():
 
     def write_analog(self, value):
         if self.pin not in [25,26]:
-            print("This pin feature is not supported")
-            return 0
+            # print("This pin feature is not supported")
+            return None
         DAC(Pin(self.pin)).write(value)
 
     def is_touched(self):
