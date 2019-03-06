@@ -5,7 +5,7 @@ class Button:
     def __init__(self, pin_id):
         from machine import Pin
         self.pin = Pin(pin_id, Pin.IN)
-        self.irq = self.pin.irq(trigger=Pin.IRQ_RISING, handler=self.__irq_sc)
+        self.irq = self.pin.irq(trigger=Pin.IRQ_FALLING, handler=self.__irq_sc)
         self.presses = 0
 
     def __irq_sc(self, p):
