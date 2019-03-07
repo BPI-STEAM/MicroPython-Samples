@@ -56,18 +56,19 @@ class decode:
 
     def parse(self, pack):
         res = self.core(pack)
-        if (pack[0] == TYPE_COLLECT):
-            # return [TYPE_COLLECT, res[1:ord(res[0]) + 1], res[ord(res[0]) + 2:]]
-            src = 1+res[0]
-            dt = 1 + src
-            return [TYPE_COLLECT, res[1:src], res[dt:dt+res[src]]]
-        elif (pack[0] == TYPE_COMMAND):
-            result = [TYPE_COMMAND, res[1:res[0] + 1]]
-            # print(result)
-            if (result[1] == b'TimeSysn'):
-                # print(decode_parse(self.de))
-                set_time(decode_parse(self.de)[0])
-            return result
+        if (res != None):
+            if (pack[0] == TYPE_COLLECT):
+                # return [TYPE_COLLECT, res[1:ord(res[0]) + 1], res[ord(res[0]) + 2:]]
+                src = 1+res[0]
+                dt = 1 + src
+                return [TYPE_COLLECT, res[1:src], res[dt:dt+res[src]]]
+            elif (pack[0] == TYPE_COMMAND):
+                result = [TYPE_COMMAND, res[1:res[0] + 1]]
+                # print(result)
+                if (result[1] == b'TimeSysn'):
+                    # print(decode_parse(self.de))
+                    set_time(decode_parse(self.de)[0])
+                return result
         return None
 
 if __name__ == '__main__':
