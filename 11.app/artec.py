@@ -10,6 +10,14 @@ import music
 
 music.play(music.POWER_UP)
 
+import pins
+
+led1 = pins.Pins(12)
+led2 = pins.Pins(14)
+
+led1.write_digital(1)
+led2.write_digital(1)
+
 import display
 
 Image = display.Image
@@ -32,6 +40,9 @@ all_boats = [
 ]
 
 display.show(all_boats, color=(10, 10, 10), delay=150)
+
+led1.write_digital(0)
+led2.write_digital(0)
 
 music.play(music.JUMP_UP)
 display.show('A', color=(20, 0, 0))
