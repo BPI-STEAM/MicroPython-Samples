@@ -10,29 +10,19 @@ import music
 
 music.play(music.POWER_UP)
 
-import display
+import pins
 
+led1 = pins.Pins(12)
+led2 = pins.Pins(14)
+
+led1.write_digital(1)
+led2.write_digital(1)
+
+import display
 Image = display.Image
 display = display.Display()
 
-display.clear()
-
-all_boats = [
-    Image("00000:" "00000:" "00000:" "00000:" "00000"),
-    Image("11111:" "00000:" "00000:" "00000:" "00000"),
-    Image("11111:" "11111:" "00000:" "00000:" "00000"),
-    Image("11111:" "11111:" "11111:" "00000:" "00000"),
-    Image("11111:" "11111:" "11111:" "11111:" "00000"),
-    Image("11111:" "11111:" "11111:" "11111:" "11111"),
-    Image("00000:" "11111:" "11111:" "11111:" "11111"),
-    Image("00000:" "00000:" "11111:" "11111:" "11111"),
-    Image("00000:" "00000:" "00000:" "11111:" "11111"),
-    Image("00000:" "00000:" "00000:" "00000:" "11111"),
-    Image("00000:" "00000:" "00000:" "00000:" "00000"),
-]
-
-display.show(all_boats, color=(10, 10, 10), delay=150)
-
+time.sleep(0.5)
 music.play(music.JUMP_UP)
 display.show('A', color=(20, 0, 0))
 while 0 == button_a.was_pressed():
@@ -40,12 +30,23 @@ while 0 == button_a.was_pressed():
 time.sleep(0.5)
 display.show('O', color=(0, 20, 0))
 
-music.play(music.JUMP_UP)
-display.show('B', color=(20, 0, 0))
-while 0 == button_b.was_pressed():
-    time.sleep(0.1)
 time.sleep(0.5)
-display.show('O', color=(0, 20, 0))
+music.play(music.JUMP_UP)
+display.show('D', color=(20, 0, 0))
+display.clear()
+time.sleep(1)
+display.show(Image("33333:" "33333:" "33333:" "33333:" "33333"), color=(10, 0, 0), delay=150)
+time.sleep(1)
+display.show(Image("33333:" "33333:" "33333:" "33333:" "33333"), color=(0, 10, 0), delay=150)
+time.sleep(1)
+display.show(Image("33333:" "33333:" "33333:" "33333:" "33333"), color=(0, 0, 10), delay=150)
+time.sleep(1)
+display.show(Image("33333:" "33333:" "33333:" "33333:" "33333"), color=(10, 10, 10), delay=150)
+time.sleep(1)
+display.clear()
+
+led1.write_digital(0)
+led2.write_digital(0)
 
 music.play(music.JUMP_UP)
 display.show('T', color=(20, 0, 0))
@@ -84,6 +85,13 @@ while True:
     now = lt.read()
     if abs(now - last) > 100:
         break
+display.show('O', color=(0, 20, 0))
+
+music.play(music.JUMP_UP)
+display.show('B', color=(20, 0, 0))
+while 0 == button_b.was_pressed():
+    time.sleep(0.1)
+time.sleep(0.5)
 display.show('O', color=(0, 20, 0))
 
 music.play(music.POWER_DOWN)

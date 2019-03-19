@@ -360,6 +360,7 @@ class Display:
         _thread.exit()
 
     def clear(self):
+        self.stop()
         self.Led.fill((0, 0, 0))
         self.Led.Show()
 
