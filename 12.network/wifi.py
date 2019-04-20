@@ -39,7 +39,7 @@ def __irq_sc(p):
 
 
 
-def start(led_delay=150, pin_id=35):
+def ready(led_delay=150, pin_id=35):
     if isconnected():
         print('Wifi connected.')
         return
