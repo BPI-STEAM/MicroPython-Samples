@@ -57,7 +57,7 @@ def _recvTextCallback(webSocket, msg):
 
     if arrow is 'N':
         display.show(Image.ARROW_N)
-        car.DataCache.append('W')
+        car.DataCache.append('N')
     if arrow is 'S':
         display.show(Image.ARROW_S)
         car.DataCache.append('S')
