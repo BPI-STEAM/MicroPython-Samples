@@ -1,3 +1,5 @@
+
+
 import wifi
 wifi.try_connect()
 
@@ -16,32 +18,24 @@ def _httpHandlerTestGet(httpClient, httpResponse):
     }
     httpResponse.WriteResponseJSONOk(obj=obj, headers=headers)
 
-@MicroWebSrv.route('/N')
+# such as http://192.168.30.139/move?arrow=N
+# such as http://192.168.30.139/move?arrow=W
+# such as http://192.168.30.139/move?arrow=S
+# such as http://192.168.30.139/move?arrow=E
+@MicroWebSrv.route('/move')
 def _httpHandlerTestGet(httpClient, httpResponse):
-    display.show(Image.ARROW_N)
+    params = httpClient.GetRequestQueryParams()
+    arrow = params['arrow']
+    if arrow is 'N':
+        display.show(Image.ARROW_N)
+    if arrow is 'S':
+        display.show(Image.ARROW_S)
+    if arrow is 'W':
+        display.show(Image.ARROW_W)
+    if arrow is 'E':
+        display.show(Image.ARROW_E)
     httpResponse.WriteResponseJSONOk(obj={
-        'move': 'N',
-    }, headers=headers)
-
-@MicroWebSrv.route('/S')
-def _httpHandlerTestGet(httpClient, httpResponse):
-    display.show(Image.ARROW_S)
-    httpResponse.WriteResponseJSONOk(obj={
-        'move': 'S',
-    }, headers=headers)
-
-@MicroWebSrv.route('/W')
-def _httpHandlerTestGet(httpClient, httpResponse):
-    display.show(Image.ARROW_W)
-    httpResponse.WriteResponseJSONOk(obj={
-        'move': 'W',
-    }, headers=headers)
-
-@MicroWebSrv.route('/E')
-def _httpHandlerTestGet(httpClient, httpResponse):
-    display.show(Image.ARROW_E)
-    httpResponse.WriteResponseJSONOk(obj={
-        'move': 'E',
+        'arrow': arrow,
     }, headers=headers)
 
 if __name__ == '__main__':
