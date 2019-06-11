@@ -81,7 +81,7 @@ class bpicar(pca9685.PCA9685):
                 print('f',len(self.DataCache))
                 temp = self.DataCache.popleft()
                 print('a',len(self.DataCache))
-                if temp == 'W':
+                if temp == 'N':
                     self.front_after += 1
                     if self.front_after > 4:
                         self.front_after = 4
@@ -99,14 +99,14 @@ class bpicar(pca9685.PCA9685):
                     print('self.front_after=', self.front_after)
                     print('self.left_right=', self.left_right)
 
-                if temp == 'D':
+                if temp == 'W':
                     self.left_right += 1
                     if self.left_right > 4:
                         self.left_right = 4
                     print('self.front_after=', self.front_after)
                     print('self.left_right=', self.left_right)
 
-                if temp == 'A':
+                if temp == 'E':
                     self.left_right -= 1
                     if self.left_right < -4:
                         self.left_right = -4
@@ -168,3 +168,5 @@ def unit_test():
     car.DataCache.append('S')
     utime.sleep(10)
     car.stop()
+if __nane__=='__main__':
+    unit_test()
