@@ -13,8 +13,10 @@ def tcb(timer):
     else:
         p1.value(1)
     tcounter += 1
-    if (tcounter % 10000) == 0:
+    if (tcounter % 100) == 0:
         print("[tcb] timer: {} counter: {}".format(timer.timernum(), tcounter))
+
+# t1.deinit() # if it is used
 
 t1 = machine.Timer(2)
 t1.init(period=20, mode=t1.PERIODIC, callback=tcb)
