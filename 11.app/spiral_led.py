@@ -1,6 +1,6 @@
 import utime
 from random import randint
-from display import NeoPixel, PixelPower
+from display import Pixel, PixelPower
 PixelPower(True)
 View = NeoPixel()
 
