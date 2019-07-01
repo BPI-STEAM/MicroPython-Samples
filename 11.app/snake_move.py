@@ -2,17 +2,17 @@
 
 from queue import PriorityQueue
 
-from display import BpiBitNeoPixel, NeoPixelPower
+from display import Pixel, PixelPower
 
 from random import randint
 import time
 
-NeoPixelPower(True)
+PixelPower(True)
 
 class SnakeMap(object):
 	
 	def __init__(self):
-		self.View = BpiBitNeoPixel()
+		self.View = Pixel()
 		# Snake 1 Food 2 None 0 In Area
 		self.Area = [0] * self.View.Sum
 		self.Snake = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0]
@@ -49,15 +49,15 @@ class SnakeMap(object):
 			self.Snake.append(result)
 			# Load Snake Body
 			for Pos in range(len(self.Snake)):
-				self.View.LoadP(self.Snake[Pos], (0, 0, (Pos + 1)))
+				self.View.LoadPos(self.Snake[Pos], (0, 0, (Pos + 1)))
 			# Clear Snake Tail
-			self.View.LoadP(self.Snake[0], (0, 0, 0))
+			self.View.LoadPos(self.Snake[0], (0, 0, 0))
 			self.Area[self.Snake[0]] = 0
 			self.Snake.pop(0)
 		# Show Snake
 		self.View.Show()
 		time.sleep(0.1)
-		return (None != result);
+		return (None != result)
 	
 Test = SnakeMap()
 for i in range(50):

@@ -2,7 +2,7 @@ import utime
 from random import randint
 from display import Pixel, PixelPower
 PixelPower(True)
-View = NeoPixel()
+View = Pixel()
 
 RGB = (0, 0, 0)
 
@@ -10,6 +10,9 @@ def Draw(x, y):
 	View.LoadXY(x, y, RGB)
 	View.Show()
 	utime.sleep_ms(1)
+
+
+
 
 r, g, b, br = 1, 1, 1, 1
 
@@ -54,3 +57,4 @@ while True:
 			y = y - 1
 			Draw(x, y)
 		d = d + 2
+
