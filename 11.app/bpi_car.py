@@ -62,10 +62,10 @@ def _recvTextCallback(webSocket, msg):
         display.show(Image.ARROW_S)
         car.DataCache.append('S')
     if arrow is 'W':
-        display.show(Image.ARROW_W)
+        display.show(Image.ARROW_E)
         car.DataCache.append('W')
     if arrow is 'E':
-        display.show(Image.ARROW_E)
+        display.show(Image.ARROW_W)
         car.DataCache.append('E')
 
     webSocket.SendText("%s" % msg)

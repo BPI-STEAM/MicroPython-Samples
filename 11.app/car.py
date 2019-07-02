@@ -9,7 +9,7 @@ position                               |\\\\\\| in_a | in_b |
           -+-----------------+-        +--------------------+
          | + |     前      | + |       | 左前 |  12  |  13  |
          | + |             | + |       +--------------------+
-           |                 |         | 右前 |  14  |  15  |
+           |                 |         | 右前 |  15  |  14  |
            +-----------------+         +--------------------+
            |                 |         | 左后 |   8  |   9  |
          | + |     后      | + |       +--------------------+
@@ -44,26 +44,26 @@ class bpicar(pca9685.PCA9685):
 
     def forward(self, speed):
 
-        self._run(14, 15, speed)
+        self._run(15, 14, speed)
         self._run(12, 13, speed, True)
         self._run(10, 11, speed)
         self._run(8, 9, speed, True)
 
     def backward(self, speed):
-        self._run(14, 15, speed, True)
+        self._run(15, 14, speed, True)
         self._run(12, 13, speed)
         self._run(10, 11, speed, True)
         self._run(8, 9, speed)
 
     def turn_left(self, speed):
 
-        self._run(14, 15, speed)
+        self._run(15, 14, speed)
         self._run(12, 13, speed)
         self._run(10, 11, speed)
         self._run(8, 9, speed)
 
     def turn_right(self, speed):
-        self._run(14, 15, speed, True)
+        self._run(15, 14, speed, True)
         self._run(12, 13, speed, True)
         self._run(10, 11, speed, True)
         self._run(8, 9, speed, True)
@@ -99,14 +99,14 @@ class bpicar(pca9685.PCA9685):
                     print('self.front_after=', self.front_after)
                     print('self.left_right=', self.left_right)
 
-                if temp == 'W':
+                if temp == 'E':
                     self.left_right += 1
                     if self.left_right > 4:
                         self.left_right = 4
                     print('self.front_after=', self.front_after)
                     print('self.left_right=', self.left_right)
 
-                if temp == 'E':
+                if temp == 'W':
                     self.left_right -= 1
                     if self.left_right < -4:
                         self.left_right = -4
@@ -118,14 +118,14 @@ class bpicar(pca9685.PCA9685):
                 speed = 1000 * abs(self.front_after)
                 if self.front_after >= 0:
                     if self.left_right <= 0:
-                        self._run(14, 15, speed)
+                        self._run(15, 14, speed)
                         self._run(10, 11, speed)
                         self._run(12, 13, int(
                             speed*(8-abs(self.left_right))/8), True)
                         self._run(
                             8, 9, int(speed*(8-abs(self.left_right))/8), True)
                     if self.left_right > 0:
-                        self._run(14, 15, int(
+                        self._run(15, 14, int(
                             speed*(8-abs(self.left_right))/8))
                         self._run(10, 11, int(
                             speed*(8-abs(self.left_right))/8))
@@ -133,14 +133,14 @@ class bpicar(pca9685.PCA9685):
                         self._run(8, 9, speed, True)
                 if self.front_after < 0:
                     if self.left_right <= 0:
-                        self._run(14, 15, speed, True)
+                        self._run(15, 14, speed, True)
                         self._run(10, 11, speed, True)
                         self._run(12, 13, int(
                             speed*(8-abs(self.left_right))/8))
                         self._run(8, 9,   int(
                             speed*(8-abs(self.left_right))/8))
                     if self.left_right > 0:
-                        self._run(14, 15, int(
+                        self._run(15, 14, int(
                             speed*(8-abs(self.left_right))/8), True)
                         self._run(10, 11, int(
                             speed*(8-abs(self.left_right))/8), True)
@@ -159,13 +159,23 @@ def unit_test():
     import _thread
     _thread.start_new_thread(car.car_test, ())
 
-    car.DataCache.append('W')
-    car.DataCache.append('W')
-    car.DataCache.append('W')
-    car.DataCache.append('W')
+    car.forward(4095)
+    utime.sleep(5)
+    car.backward(4095)
+    utime.sleep(5)
+    car.turn_left(4095)
+    utime.sleep(5)
+    car.turn_right(4095)
+    utime.sleep(5)
+    car.stop()
+    utime.sleep(5)
+    car.DataCache.append('N')
+    car.DataCache.append('N')
+    car.DataCache.append('N')
+    car.DataCache.append('N')
     utime.sleep(10)
-    car.DataCache.append('A')
-    car.DataCache.append('A')
+    car.DataCache.append('E')
+    car.DataCache.append('E')
     utime.sleep(10)
     car.DataCache.append('S')
     car.DataCache.append('S')
@@ -175,6 +185,7 @@ def unit_test():
     car.DataCache.append('S')
     car.DataCache.append('S')
     car.DataCache.append('S')
+
     utime.sleep(10)
     car.stop()
 
