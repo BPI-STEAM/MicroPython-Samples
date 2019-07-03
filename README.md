@@ -161,3 +161,21 @@ MicroPython-Samples
         crc16.py
 
 ```      
+
+## 快速使用 micropython-samples
+
+### vscode
+
+我们使用vscode这个IDE来编写运行代码，直接到官方下载安装
+
+### mpfshell
+
+- 下载安装
+vscode有很多插件可以使用，这里我们直接到商店中搜索 mpfshell 后安装，要使用mpfshell需要确保电脑已经安装了python3 并已经把python3添加到环境变量中。
+
+- 使用
+  使用usb线连接板子，然后用vscode打开我们的micropython-samples这个文件夹，在此之前需要我们把这个项目clone下来或者下载文件压缩包。然后找到我们想要运行的文件，双击打开，在内容编辑区使用鼠标右键，选择mpfs>run this file就可以直接在板子上面运行文件了，同时也可以使用start repl、open tool。都是右键选中直接运行命令。
+
+
+
+
