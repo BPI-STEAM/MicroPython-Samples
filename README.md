@@ -163,11 +163,26 @@ MicroPython-Samples
 
 ### vscode
 
-我们使用vscode这个IDE来编写运行代码，直接到官方下载安装
+我们使用vscode这个IDE来编写运行代码，直接到官方下载安装 
+- 进入   https://code.visualstudio.com   选择适合电脑的版本安装![](photo/vscode.png)
+
+### python安装
+
+- python的版本要选择在3.5及以上的版本
+- 安装的时候选择安装pip
+
+### 串口驱动安装
+
+bpi:bit板使用的是ch340这块芯片，电脑上要安装相关的驱动
+
+- [点击下载ch340驱动](http://www.wch.cn/downloads/file/65.html)
+  下载完后安装即可
 
 ### mpfshell
 
 - 下载安装
+mpfshell需要安装两个，一个使用python pip安装在系统环境中，一个在vscode的商店中安装mpfshell插件。
+
 vscode有很多插件可以使用，这里我们直接到商店中搜索 mpfshell 后安装，要使用mpfshell需要确保电脑已经安装了python3 并已经把python3添加到环境变量中。
 
 - 使用
