@@ -1,12 +1,12 @@
 # MicroPython-Samples [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge)](./LICENSE)
 
-Provide many interesting micro python code for bpi:bit
+Provide many interesting Micro Python Code for bpi:bit(esp32).
 
-为 bpi:bit 提供许多有意思的Python代码示例。
+为 bpi:bit(esp32) 提供许多有意思的Python代码示例。
 
-## 文件目录:
+## 文件目录
 
-```
+```txt
 
 MicroPython-Samples
 │  .gitignore
@@ -20,11 +20,11 @@ MicroPython-Samples
 │  
 ├─.vscode
 │  settings.json
-│      
+│
 ├─00.basics
 │      globals.py
 │      helloworld.py
-│      
+│
 ├─01.leds
 │      blink.py
 │      blink_toggle.py
@@ -34,7 +34,7 @@ MicroPython-Samples
 │      heartbeat_fade.py
 │      pixel.py
 │      rgb_lattice.py
-│      
+│
 ├─02.inputs
 │      adc.py
 │      button.py
@@ -43,25 +43,25 @@ MicroPython-Samples
 │      switch_neopixel.py
 │      trigger.py
 │      uart.py
-│      
+│
 ├─03.pins
 │      pins_basic_output.py
-│      
+│
 ├─04.i2c
 │      i2c-scan.py
 │      pca9685.py
 │      RTC-PCF8563.py
-│      
+│
 ├─05.spi
 │      font.py
 │      index.py
 │      st7735.py
 │      tft.py
-│      
+│
 ├─06.clock
 │      clock.py
 │      set_time.py
-│      
+│
 ├─07.sensors
 │  │  dht11.py
 │  │  sh1106.py
@@ -69,37 +69,37 @@ MicroPython-Samples
 │  │  
 │  ├─buzzer
 │  │      radombuzzer.py
-│  │      
+│  │
 │  ├─cs5460a
 │  │      cs5460a.py
-│  │      
+│  │
 │  ├─dht
 │  │      dht11.py
-│  │      
+│  │
 │  ├─hc-sr04
 │  │      hc-sr04.py
-│  │      
+│  │
 │  ├─M5310A
 │  │      M5310A.py
 │  │      M5310A_old.py
-│  │      
+│  │
 │  ├─mpu9250
 │  │      ak8963.py
 │  │      exmaple.py
 │  │      mpu6500.py
 │  │      Mpu9250.py
-│  │      
+│  │
 │  └─ptsmd021
 │          lumtoled.py
-│          
+│
 ├─08.servos
 │      get_servo_angle.py
 │      sweep.py
-│      
+│
 ├─09.scratch
 │      firmata.py
 │      s4a.py
-│      
+│
 ├─10.microbit
 │      accelerometer.py
 │      button.py
@@ -111,7 +111,7 @@ MicroPython-Samples
 │      pins.py
 │      s2mb.py
 │      temperature.py
-│      
+│
 ├─11.app
 │      artec.py
 │      balance_ball.py
@@ -126,7 +126,7 @@ MicroPython-Samples
 │      snake_move.py
 │      spiral_led.py
 │      zhiwu_idas.py
-│      
+│
 ├─12.network
 │      ftp_server.py
 │      get_weather.py
@@ -140,7 +140,7 @@ MicroPython-Samples
 │      XAsyncSockets.py
 │      zhiwu.py
 │      zw_tran.py
-│      
+│
 ├─13.system
 │      logging.py
 │      task.py
@@ -148,16 +148,16 @@ MicroPython-Samples
 │      watchdog.py
 │      yield.py
 │      yield_task.py
-│      
+│
 ├─14.music
 │      music.py
 │      music_bulid_in.py
 │      music_esp32.py
-│      
+│
 └─15.algorithm
         crc16.py
 
-```      
+```
 
 ## 快速使用 micropython-samples
 
