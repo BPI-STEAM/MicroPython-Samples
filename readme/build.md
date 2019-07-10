@@ -18,7 +18,7 @@ http://www.i5seo.com/python-vscode-one-click-installation-windows-mac-version.ht
 
 当你一键部署失败了，可以参考手动安装教程。
 
-### 安装 PYTHON3 
+### 安装 python3 
 
 可以参考该篇文档，<https://www.runoob.com/python3/python3-install.html。>
 
@@ -48,7 +48,7 @@ http://www.i5seo.com/python-vscode-one-click-installation-windows-mac-version.ht
 ![python4](images/../../images/python4.jpg)
 完成安装
 
-### 安装 VSCODE
+### 安装 vscode
 
 可以参考以下两篇，或百度：如何安装 VSCODE。
 
@@ -119,7 +119,15 @@ http://www.i5seo.com/python-vscode-one-click-installation-windows-mac-version.ht
 
 进入商店搜索 Chinese 选择下载即可
 
+### 安装串口驱动
+
+详细的安装驱动的方法
+https://bpi-steam-docs.readthedocs.io/zh_CN/latest/bpi-steam/driver.html
+
 ### 如何开始使用
+
+查看详细的使用方法
+<https://github.com/BPI-STEAM/MicroPython-Samples/blob/master/readme/example.md>
 
 下载文件夹
 
