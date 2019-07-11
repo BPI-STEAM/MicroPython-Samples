@@ -1,119 +1,116 @@
 # 使用 MicroPython Samples 仓库
 
-如下使用的效果，你需要安装 Python3 和 VSCODE 编辑器。
+需要安装 Python3 、 VSCode 、 Mpfshell-lite 呈现如下使用效果。
 
-图示
+![python](images/result.png)
 
 ## 一键部署
 
-测试环境 window7 +
+> 测试环境 window7 + 家庭基础版
 
-下载链接
-稍后传到 release 备份一份。
+[更新日志 & 下载链接](https://github.com/BPI-STEAM/One-click-micropython-deployment/releases)
 
-使用教程
-http://www.i5seo.com/python-vscode-one-click-installation-windows-mac-version.html
+- [使用教程（一）](https://github.com/BPI-STEAM/One-click-micropython-deployment)
+
+- [使用教程（二）](http://www.i5seo.com/python-vscode-one-click-installation-windows-mac-version.html)
 
 ## 手动安装
 
-当你一键部署失败了，可以参考手动安装教程。
+若是一键部署失败了，可以参考以下教程手动安装。
 
-### 安装 python3 
+### 如何安装 Python3 环境
 
-可以参考该篇文档，<https://www.runoob.com/python3/python3-install.html。>
+[可以参考该篇文档](https://www.runoob.com/python3/python3-install.html>) 或根据以下图示教程，切记一定要添加环境变量。
 
-或使用以下图示教程。
+#### 下载 & 安装 Python3
 
-#### 下载 python
+进入 [Python3](https://www.python.org) 官网，在 Download 下面选择适合你电脑系统的版本，这里以 Windows 为例。
 
-到官方的网站上下载python https://www.python.org/
+![python](images/python.png)
 
-![python](images/../../images/python.png)
+进入下载页面，选择 3.5 及以上的 Python 版本，并建议选择 32 位的 x86 版本，安装包选择 executable installer 直接下载好后安装的版本。
 
-进去官网，在download下面选择你电脑的系统，这里以windows为例。
+![python1](images/python1.png)
 
-![python1](images/../../images/python1.jpg)
+下载得到 Python 安装包后双击运行。
 
-这里要选择相应的版本，python要选择3.5及以上的版本，注意如果电脑是64位的就选x86-64的下载，电脑是32位的就选择x86的下载，这里的安装包一种是web-base，一种是executable的，选择哪种都是可以的。
+![python2](images/python2.jpg)
 
-#### 安装python
+勾选 `Add Python to Path` （添加环境变量），接着选择 `install Now` 自动等待安装完成。
 
-![python2](images/../../images/python2.jpg)
+![python3](images/python3.jpg)
 
-下载得到安装包双击运行
+安装完成如下图。
 
-![python3](images/../../images/python3.jpg)
-这里要勾选 Add Python to Path ,然后选择install Now 自动安装
+![python4](images/python4.jpg)
 
-![python4](images/../../images/python4.jpg)
-完成安装
+### 如何安装 VSCode IDE
 
-### 安装 vscode
+百度搜索 `如何安装 VSCODE` 或参考以下两篇教程进行安装。
 
-可以参考以下两篇，或百度：如何安装 VSCODE。
+- [VSCode的下载和安装](https://jingyan.baidu.com/article/d3b74d640eadce1f76e60958.html)
 
-<https://jingyan.baidu.com/article/d3b74d640eadce1f76e60958.html>
+- [vsCode安装使用教程和插件安装方法](https://www.jb51.net/article/151655.htm)
 
-<https://www.jb51.net/article/151655.htm>
+你也可以跟着以下图示教程直接开始。
 
-或使用以下图示教程。
+#### 下载 & 安装 VSCode
 
-#### 安装vscode
+进入[VSCode 官网](https://code.visualstudio.com/) 点击 `Download for Windows` 就会直接下载。
 
-首先下载软件 <https://code.visualstudio.com/>
+![vscode](images/vscode.png)
 
-![vscode](images/../../images/vscode.png)
+若是下载选项没有适合你电脑的版本就请点击 `other download` ，可以在该页选择你想要的版本。
 
-点击直接下载，如果上面三个瞎下载选项没有你电脑的类型就点击other download。
+![vscode1](images/vscode1.png)
 
-![vscode1](images/../../images/vscode1.png)
+选择与你电脑对应的系统版本（Windows 建议 32位 X86 版本），下载并运行安装程序。
 
-选择相应的系统版本直接下载安装文件。
+![vscode2](images/vscode2.jpg)
 
-![vscode2](images/../../images/vscode2.jpg)
+全部勾选以下功能选项有利于你快速使用 VSCode 如点击文件夹后右键打开 VSCode （Open with Code）。
 
-找到下载的文件并打开
+![vscode3](images/vscode4.jpg)
 
-![vscode3](images/../../images/vscode4.jpg)
-这里最好是全部勾选上方便使用
+如下图完成安装。
 
-![vscode4](../images/vscode5.jpg)
+![vscode4](images/vscode5.jpg)
 
-完成安装
+### 配置 MicroPyhton 开发环境
 
-### 设置
+安装 VSCode 和 Python3 后，你还需要进行一些额外的配置。
 
-下载安装完成vscode和python后需要进行一些简单的设置。
+#### 安装 mpfshell-lite
 
-#### 安装mpfshell
+[开源仓库 & 使用说明](https://github.com/BPI-STEAM/mpfshell-lite)
 
-首先要打开命令窗口，键盘win+r，输入cmd后回车打开
+首先在键盘上按下组合键 win + r 打开命令窗口，输入 cmd 后按回车打开命令行控制台。
 
-![cmd](images/../../images/cmd.png)
+![cmd](images/cmd.png)
 
-输入 python -m pip install --upgrade pip 更新pip
+输入 `python -m pip install --upgrade pip` 开始更新 pip ，如果你不想要更新可以跳过该操作。
 
-![cmd1](images/../../images/cmd1.png)
+![cmd1](images/cmd1.png)
 
-成功更新pip
+成功更新 pip 接着输入 `pip install mpfshell-lite` 安装 mpfshell-lite
 
-![cmd2](images/../../images/cmd2.png)
+![cmd2](images/cmd2.png)
 
-输入 pip install mpfshell-lite 安装mpfshell-lite
+![cmd3](images/cmd3.jpg)
 
-![cmd3](images/../../images/cmd3.jpg)
+成功安装 mpfshell-lite ，输入 mpfs 确认配置成功。
 
-成功安装mpfshell-lite
-
-#### 安装 VSCODE python插件
+#### 安装 VSCODE Python 插件
 
 进入商店搜索 python 选择下载即可
-![insert](images/../../images/insert.png)
 
-#### 安装 VSCODE mpfshell插件
+![insert](images/insert.png)
+
+#### 安装 VSCODE mpfshell 插件
 
 进入商店搜索 Mpfshell 选择下载即可
-![insert](images/../../images/insert1.png)
+
+![insert](images/insert1.png)
 
 #### 安装 VSCODE 中文语言包插件
 
