@@ -40,7 +40,7 @@ BPI-BIT 连接电脑的时候会提示你安装驱动，如果需要有线连接
 
 ![python2](images/python2.jpg)
 
-勾选 `Add Python to Path` （添加环境变量），接着选择 `install Now` 自动等待安装完成。
+勾选 `Add Python to Path` （添加环境变量），接着选择 `Install Now` 自动等待安装完成。
 
 ![python3](images/python3.jpg)
 
@@ -108,7 +108,7 @@ BPI-BIT 连接电脑的时候会提示你安装驱动，如果需要有线连接
 
 进入商店搜索 python 选择下载即可
 
-![insert](images/insert.png)
+![insert](images/insert.jpg)
 
 #### 安装 VSCODE mpfshell 插件
 

@@ -163,8 +163,9 @@ MicroPython-Samples
 
 ### vscode
 
-我们使用vscode这个IDE来编写运行代码，直接到官方下载安装 
-- 进入   https://code.visualstudio.com   选择适合电脑的版本安装![](photo/vscode.png)
+我们使用vscode这个IDE来编写运行代码，直接到官方下载安装
+
+- 进入 <https://code.visualstudio.com>选择适合电脑的版本安装![vscode](photo/vscode.png)
 
 ### python安装
 
@@ -197,6 +198,3 @@ vscode有很多插件可以使用，这里我们直接到商店中搜索 mpfshel
 第三，一个从下载说明、使用示例、运行代码的过程示例。
 
 每个事情都可以单拆成文档
-
-
-
