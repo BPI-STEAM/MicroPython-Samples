@@ -4,6 +4,10 @@
 
 ![python](images/result.png)
 
+## 安装 CH340 串口驱动
+
+BPI-BIT 连接电脑的时候会提示你安装驱动，如果需要有线连接开发程序，则可以查看[安装驱动教程](https://bpi-steam-docs.readthedocs.io/zh_CN/latest/bpi-steam/driver.html) 完成安装。
+
 ## 一键部署
 
 > 测试环境 window7 + 家庭基础版
@@ -96,9 +100,9 @@
 
 ![cmd2](images/cmd2.png)
 
-![cmd3](images/cmd3.jpg)
-
 成功安装 mpfshell-lite ，输入 mpfs 确认配置成功。
+
+![cmd3](images/mpfs.png)
 
 #### 安装 VSCODE Python 插件
 
@@ -112,29 +116,10 @@
 
 ![insert](images/insert1.png)
 
-#### 安装 VSCODE 中文语言包插件
+#### 安装 VSCODE 中文语言包 插件
 
 进入商店搜索 Chinese 选择下载即可
 
-### 安装串口驱动
+![insert](images/chinese.png)
 
-详细的安装驱动的方法
-https://bpi-steam-docs.readthedocs.io/zh_CN/latest/bpi-steam/driver.html
-
-### 如何开始使用
-
-查看详细的使用方法
-<https://github.com/BPI-STEAM/MicroPython-Samples/blob/master/readme/example.md>
-
-下载文件夹
-
-右键菜单打开文件夹
-
-选择一个代码，右键选择运行
-
-在该文件夹，第一次使用会提示输入串口配置，填空自动搜索，配置文件存储在 .vscode/
-
-可以运行查看效果，如果需要指定串口需要使用菜单 
-
-修改成你知道的设备串口即可。
-运行示例代码请看 此文档。
+## 至此安装教程已经完成，可以查看[如何开始使用一个示例代码](example.md)。
