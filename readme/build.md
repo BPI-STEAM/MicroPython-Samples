@@ -1,4 +1,4 @@
-# 使用 MicroPython Samples 仓库
+# 配置 MicroPython Samples 仓库
 
 需要安装 Python3 、 VSCode 、 Mpfshell-lite 呈现如下使用效果。
 
