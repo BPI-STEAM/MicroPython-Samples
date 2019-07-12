@@ -1,31 +1,25 @@
 # 如何使用仓库的 MicroPython 代码
 
-备注：
-
-下载文件夹
-
-右键菜单打开文件夹
-
-选择一个代码，右键选择运行
-
-在该文件夹，第一次使用会提示输入串口配置，填空自动搜索，配置文件存储在 .vscode/
-
-可以运行查看效果，如果需要指定串口需要使用菜单
-
-修改成你知道的设备串口即可。
-运行示例代码请看 此文档。
-
 ## 下载 Sample 示例代码包
 
 ### 方式一
 
 进入 Github 仓库 <https://github.com/BPI-STEAMMicroPython-Samples> 下载代码包，点击 clone or download 后选择download zip 下载压缩包
+
 ![sample](images/sample.jpg)
 
 ### 方式二
 
-如果电脑上有安装git工具可以直接运行下面命令clone下来就可以了
-`git clone https://github.com/BPI-STEAM/MicroPython-Samples`
+如果电脑有安装git工具，可以使用git工具把samples库clone下来。
+在指定的文件夹中右键选择Git Bash Hear
+![sample9](images/sample9.png)
+
+输入`git clone https://github.com/BPI-STEAM/MicroPython-Samples`
+![sample10](images/sample10.png)
+
+按下回车键开始clone，完成后samples库就会出现在文件夹中。
+
+![sample11](images/sample11.png)
 
 ## 运行sample示例代码
 
