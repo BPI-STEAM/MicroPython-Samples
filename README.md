@@ -4,6 +4,14 @@ Provide many interesting Micro Python Code for bpi:bit(esp32).
 
 为 bpi:bit(esp32) 提供许多有意思的Python代码示例。
 
+## 快速使用 micropython-samples
+
+- 一、[搭建开发环境](https://github.com/BPI-STEAM/MicroPython-Samples/blob/master/readme/build.md)
+  
+- 二、[samples库使用方法](https://github.com/BPI-STEAM/MicroPython-Samples/blob/master/readme/example.md)
+
+- [FAQ](https://github.com/BPI-STEAM/MicroPython-Samples/blob/master/readme/FAQ.md)(常见问题解答)
+
 ## 文件目录
 
 ```txt
@@ -158,43 +166,3 @@ MicroPython-Samples
         crc16.py
 
 ```
-
-## 快速使用 micropython-samples
-
-### vscode
-
-我们使用vscode这个IDE来编写运行代码，直接到官方下载安装
-
-- 进入 <https://code.visualstudio.com>选择适合电脑的版本安装![vscode](photo/vscode.png)
-
-### python安装
-
-- python的版本要选择在3.5及以上的版本
-- 安装的时候选择安装pip
-
-### 串口驱动安装
-
-bpi:bit板使用的是ch340这块芯片，电脑上要安装相关的驱动
-
-- [点击下载ch340驱动](http://www.wch.cn/downloads/file/65.html)
-  下载完后安装即可
-
-### mpfshell
-
-- 下载安装
-mpfshell需要安装两个，一个使用python pip安装在系统环境中，一个在vscode的商店中安装mpfshell插件。
-
-vscode有很多插件可以使用，这里我们直接到商店中搜索 mpfshell 后安装，要使用mpfshell需要确保电脑已经安装了python3 并已经把python3添加到环境变量中。
-
-- 使用
-  使用usb线连接板子，然后用vscode打开我们的micropython-samples这个文件夹，在此之前需要我们把这个项目clone下来或者下载文件压缩包。然后找到我们想要运行的文件，双击打开，在内容编辑区使用鼠标右键，选择mpfs>run this file就可以直接在板子上面运行文件了，同时也可以使用start repl、open tool。都是右键选中直接运行命令。
-
-### 要处理的效果
-
-第一、安装工具相关的链接，文档链接
-
-第二，安装 VSC 的一步步方法和教程，注意我的自动化部署工具， Python3.5 同理
-
-第三，一个从下载说明、使用示例、运行代码的过程示例。
-
-每个事情都可以单拆成文档
