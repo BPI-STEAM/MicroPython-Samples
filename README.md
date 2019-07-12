@@ -2,15 +2,15 @@
 
 Provide many interesting Micro Python Code for bpi:bit(esp32).
 
-为 bpi:bit(esp32) 提供许多有意思的Python代码示例。
+为 bpi:bit(esp32) 提供许多有意思的 Python 代码示例。
 
-## 快速使用 micropython-samples
+## 快速使用
 
-- 一、[搭建开发环境](https://github.com/BPI-STEAM/MicroPython-Samples/blob/master/readme/build.md)
+- [搭建开发环境](readme/build.md)
   
-- 二、[samples库使用方法](https://github.com/BPI-STEAM/MicroPython-Samples/blob/master/readme/example.md)
+- [基本开发示例](readme/example.md)
 
-- [FAQ](https://github.com/BPI-STEAM/MicroPython-Samples/blob/master/readme/FAQ.md)(常见问题解答)
+- [常见问题解答](readme/FAQ.md)
 
 ## 文件目录
 
