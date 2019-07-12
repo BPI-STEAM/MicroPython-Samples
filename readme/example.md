@@ -22,7 +22,6 @@
 进入 Github 仓库 <https://github.com/BPI-STEAMMicroPython-Samples> 下载代码包，点击 clone or download 后选择download zip 下载压缩包
 ![sample](images/sample.jpg)
 
-
 ### 方式二
 
 如果电脑上有安装git工具可以直接运行下面命令clone下来就可以了
