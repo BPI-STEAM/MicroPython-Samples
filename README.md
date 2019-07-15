@@ -4,15 +4,21 @@ Provide many interesting Micro Python Code for bpi:bit(esp32).
 
 为 bpi:bit(esp32) 提供许多有意思的 Python 代码示例。
 
-## 快速使用
+## Getting Started
+
+- [安装有线驱动](https://bpi-steam-docs.readthedocs.io/zh_CN/latest/bpi-steam/driver.html)
+
+- [烧录开发固件](https://doc.bpi-steam.com/zh_CN/latest/bpi-mpy/tutorials/flash_mpy.html)
 
 - [搭建开发环境](readme/build.md)
   
-- [基本开发示例](readme/example.md)
+- [新手入门示例](readme/example.md)
 
 - [常见问题解答](readme/FAQ.md)
 
-## 文件目录
+## 示例代码分类
+
+未来将会对基础示例代码进行更有现实意义的分类。
 
 ```txt
 
