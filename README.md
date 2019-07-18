@@ -18,7 +18,7 @@ Provide many interesting Micro Python Code for bpi:bit(esp32).
 
 ## 示例代码分类
 
-未来将会对基础示例代码进行更有现实意义的分类。
+> 2019年7月18日：未来将会对基础示例代码进行更有现实意义的分类。
 
 ```txt
 
