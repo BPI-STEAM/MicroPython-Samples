@@ -4,7 +4,7 @@ Provide many interesting Micro Python Code for bpi:bit(esp32).
 
 为 bpi:bit(esp32) 提供许多有意思的 Python 代码示例。
 
-> 补效果图 补淘宝链接
+![](https://codimd.s3.shivering-isles.com/demo/uploads/upload_c1f328b30dc9c7234b6699dce5041d31.png)
 
 ## Getting Started
 
