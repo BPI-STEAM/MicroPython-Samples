@@ -4,7 +4,7 @@ Provide many interesting Micro Python Code for bpi:bit(esp32).
 
 为 bpi:bit(esp32) 提供许多有意思的 Python 代码示例。
 
-![](bpibit.png)
+![](readme/bpibit.png)
 
 ## Getting Started
 
