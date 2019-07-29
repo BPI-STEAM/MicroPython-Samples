@@ -1,7 +1,0 @@
-{
-    "/": {
-        "help": "请将以下的 url 对应的项 改成你的板子对应的 IP地址（http://192.168.1.129）或 域名地址 （http://bitBD3C）",
-        "url": "http://bit3de1.lan",
-        "ignoreSSLErrors": true
-    }
-}
