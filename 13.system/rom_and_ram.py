@@ -1,14 +1,14 @@
-import gc
+
 import ubinascii
 import os
+import gc
+
 statvfs_fields = ['bsize', 'frsize', 'blocks',
                   'bfree', 'bavail', 'files', 'ffree', ]
 info = dict(zip(statvfs_fields, os.statvfs('/flash')))
-print(info)
-# {'files': 0, 'ffree': 0, 'bsize': 4096, 'bfree': 175, 'frsize': 4096, 'bavail': 175, 'blocks': 513}
-print(info['bsize'] * info['bfree'])
+# print(info)
+print('ffs flash: ' + str(info['bsize'] * info['bfree'] / 1024) + ' kb')
 
-
-print(gc.mem_free())
+print('mpy ram: ' + str(gc.mem_free()) + ' bit')
 gc.collect()
-print(gc.mem_free())
+print('mpy ram: ' + str(gc.mem_free()) + ' bit')
