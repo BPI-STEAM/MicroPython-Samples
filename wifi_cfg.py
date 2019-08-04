@@ -1,3 +1,3 @@
-WIFI_SSID = 'webduino.io'
-WIFI_PSWD = 'webduino'
+WIFI_SSID = 'zhiwu'
+WIFI_PSWD = 'zhiwu123'
 HOST_NAME='espressif'
