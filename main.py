@@ -1,2 +1,3 @@
+import microbit
 
-print("hello world!")
+print(dir(microbit))
