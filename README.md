@@ -10,7 +10,7 @@ Provide many interesting Micro Python Code for bpi:bit(esp32).
 
 - [安装有线驱动](https://bpi-steam-docs.readthedocs.io/zh_CN/latest/bpi-steam/driver.html)
 
-- [烧录开发固件](https://doc.bpi-steam.com/zh_CN/latest/bpi-mpy/tutorials/flash_mpy.html)
+- [烧录开发固件](https://doc.bpi-steam.com/zh_CN/latest/micropython/tutorials/flash_mpy.html)
 
 - [搭建开发环境](readme/build.md)
   
